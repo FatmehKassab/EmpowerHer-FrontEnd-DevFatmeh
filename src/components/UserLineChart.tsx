@@ -1,11 +1,13 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Tooltip,
+  Legend,
   ChartOptions,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
@@ -15,48 +17,52 @@ import Button from "./common/Button";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Tooltip,
+  Legend,
   ChartDataLabels
 );
 
-const GrowthHBar: React.FC = () => {
-  const labels = ["Su", "Sa", "Fr", "Th", "We", "Tu", "Mo"];
+const UserLineChart: React.FC = () => {
+  const labels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const data = {
     labels: labels,
     datasets: [
       {
-        axis: "y", // Enables horizontal bars
         label: "Users",
-        data: [36, 23, 27, 14, 45, 19, 31],
-        backgroundColor: "#AB2849", // Set bars color to white
+        data: [5, 15, 7, 9, 13, 30, 10], // Example data for each weekday
+        fill: false,
+        borderColor: "#AB2849", // Line color
+        backgroundColor: "#FFFFFF", // Set point color to transparent (or omit this line)
+        borderWidth: 2, // Set the line thickness
+        tension: 0.1, // Smoothness of the line
       },
     ],
   };
 
-  const options: ChartOptions<"bar"> = {
-    indexAxis: "y", // Ensure horizontal chart by setting indexAxis to 'y'
+  const options: ChartOptions<"line"> = {
     responsive: true,
     scales: {
       x: {
-        beginAtZero: true, // Start x-axis at 0
         grid: {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // Make x-axis numbers white
+          color: "#AB2849", // X-axis numbers color
         },
         border: {
           color: "#AB2849", // Set x-axis color to white
         },
       },
       y: {
+        beginAtZero: true, // Start y-axis at 0
         grid: {
-          display: false, // Remove grid lines
+          display: false, // Optional: add grid lines for clarity
         },
         ticks: {
-          color: "#AB2849", // Make y-axis numbers white
+          color: "#AB2849", // Y-axis numbers color
         },
         border: {
           color: "#AB2849", // Set x-axis color to white
@@ -65,7 +71,10 @@ const GrowthHBar: React.FC = () => {
     },
     plugins: {
       legend: {
-        display: false, // Remove legend
+        display: false, // Show legend
+        labels: {
+          color: "#AB2849", // Legend labels color
+        },
       },
       tooltip: {
         callbacks: {
@@ -76,18 +85,15 @@ const GrowthHBar: React.FC = () => {
       },
       // Enable data labels
       datalabels: {
-        color: "#FFFFFF", // Set data label color to white
-        anchor: "start",
-        align: "end",
-        formatter: (value: number) => value, // Display the value itself
+        display: false,
       },
     },
   };
 
   return (
-    <div className="flex justify-between flex-col ">
+    <div className="flex justify-between flex-col">
       <div className="flexBetween">
-        <h2 className="font-semibold text-text">User Growth</h2>
+        <h2 className="font-semibold text-text">User Retention</h2>
         <Button
           type="button"
           title="Daily"
@@ -98,15 +104,11 @@ const GrowthHBar: React.FC = () => {
         />
       </div>
 
-      <div className="flex items-center gap-1">
-        <span className="w-3 h-3 px-2 rounded-sm bg-primary"></span>
-        <span className="text-sm text-text">Users</span>
-      </div>
       <div className="w-full h-auto">
-        <Bar data={data} options={options} />
+        <Line data={data} options={options} />
       </div>
     </div>
   );
 };
 
-export default GrowthHBar;
+export default UserLineChart;
