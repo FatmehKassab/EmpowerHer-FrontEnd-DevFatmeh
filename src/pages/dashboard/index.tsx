@@ -6,13 +6,14 @@ import {
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import MetricBox from "../../components/MetricBox";
 import Table from "../../components/common/Table";
-import DonutChart from "../../components/DonutMembership";
+
 import Button from "../../components/common/Button";
 import RecentActivityItem from "../../components/RecentActivityItem";
-import Chart2 from "../../components/Chart2";
+import DonutTickets from "../../components/DonutTickets";
 import HBarChart from "../../components/HBarChart";
 import VBarChart from "../../components/VBarChart";
 import DonutMembership from "../../components/DonutMembership";
+import DonutTichets from "../../components/DonutTickets";
 
 type MetricData = {
   icon: IconDefinition;
@@ -110,7 +111,7 @@ const Dashboard: React.FC = () => {
             <DonutMembership />
           </div>
           <div className="">
-            <Chart2 />
+            <DonutTichets />
           </div>
         </div>
       </Table>
