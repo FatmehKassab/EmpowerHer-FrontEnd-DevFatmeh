@@ -2,6 +2,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from "chart.js";
+import { colors } from "../utils/theme";
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
@@ -12,7 +13,11 @@ const DonutMembership: React.FC = () => {
       {
         label: "Membership stats",
         data: [55, 25, 20],
-        backgroundColor: ["#6A1B9A", "#AB2849", "#000000"],
+        backgroundColor: [
+          colors.primary, // Using colors from the theme
+          colors.iconC3,
+          colors.black,
+        ],
         borderWidth: 0,
       },
     ],
@@ -49,7 +54,7 @@ const DonutMembership: React.FC = () => {
             <span
               className="w-3 h-3 px-2 rounded-sm"
               style={{
-                backgroundColor: data.datasets[0].backgroundColor[index],
+                backgroundColor: data.datasets[0].backgroundColor[index], // Dynamic color
               }}
             ></span>
             <span>{label}</span>

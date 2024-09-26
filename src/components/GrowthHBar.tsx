@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
 import Button from "./common/Button";
+import { colors } from "../utils/theme";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -30,7 +31,7 @@ const GrowthHBar: React.FC = () => {
         axis: "y", // Enables horizontal bars
         label: "Users",
         data: [36, 23, 27, 14, 45, 19, 31],
-        backgroundColor: "#AB2849", // Set bars color to white
+        backgroundColor: colors.primary, // Using colors from the theme
       },
     ],
   };
@@ -45,10 +46,10 @@ const GrowthHBar: React.FC = () => {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // Make x-axis numbers white
+          color: colors.primary, // Make x-axis numbers white
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: colors.primary, // Set x-axis color to white
         },
       },
       y: {
@@ -56,10 +57,10 @@ const GrowthHBar: React.FC = () => {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // Make y-axis numbers white
+          color: colors.primary, // Make y-axis numbers white
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: colors.primary, // Set x-axis color to white
         },
       },
     },

@@ -9,6 +9,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
+import { colors } from "../utils/theme";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -28,7 +29,7 @@ const InsightsVBar: React.FC = () => {
       {
         label: "Users",
         data: [36, 25, 45, 20],
-        backgroundColor: "#AB2849", // Set bars color
+        backgroundColor: colors.primary, // Set bars color
       },
     ],
   };
@@ -43,10 +44,10 @@ const InsightsVBar: React.FC = () => {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // Make x-axis numbers white
+          color: colors.primary, // Make x-axis numbers white
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: colors.primary, // Set x-axis color to white
         },
       },
       y: {
@@ -54,10 +55,10 @@ const InsightsVBar: React.FC = () => {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // Make y-axis numbers white
+          color: colors.primary, // Make y-axis numbers white
         },
         border: {
-          color: "#AB2849", // Set y-axis color to white
+          color: colors.primary, // Set y-axis color to white
         },
       },
     },

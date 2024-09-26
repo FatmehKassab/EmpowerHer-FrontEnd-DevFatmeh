@@ -6,12 +6,8 @@ import {
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import MetricBox from "../../components/MetricBox";
 import Table from "../../components/common/Table";
-
 import Button from "../../components/common/Button";
 import RecentActivityItem from "../../components/RecentActivityItem";
-import DonutTickets from "../../components/DonutTickets";
-import HBarChart from "../../components/GrowthHBar";
-import VBarChart from "../../components/VBarChart";
 import DonutMembership from "../../components/DonutMembership";
 import DonutTichets from "../../components/DonutTickets";
 import GrowthHBar from "../../components/GrowthHBar";
@@ -88,9 +84,6 @@ const approvalData = [
   { title: "pending event approvals", count: 15 },
   { title: "platform issues", count: "7/2" },
 ];
-
-const eventLabels = ["Event 1", "Event 2", "Event 3", "Event 4"];
-const eventData = [36, 25, 45, 20];
 
 const Dashboard: React.FC = () => {
   return (

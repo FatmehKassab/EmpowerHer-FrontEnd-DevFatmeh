@@ -16,6 +16,7 @@ module.exports = {
         iconC2:"#FF7043", //orange
         iconC3:"#6A1B9A", //purple
         change:"#02D73D", //green
+        black:'#000000',
     
       },
     },

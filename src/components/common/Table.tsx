@@ -1,7 +1,5 @@
 import React from "react";
 import Button, { ButtonProps } from "./Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 type TableProps = {
   title: string;

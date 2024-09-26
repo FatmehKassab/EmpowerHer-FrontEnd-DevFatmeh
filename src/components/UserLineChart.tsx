@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
 import Button from "./common/Button";
+import { colors } from "../utils/theme";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -34,7 +35,7 @@ const UserLineChart: React.FC = () => {
         label: "Users",
         data: [5, 15, 7, 9, 13, 30, 10], // Example data for each weekday
         fill: false,
-        borderColor: "#AB2849", // Line color
+        borderColor: colors.primary, // Line color
         backgroundColor: "#FFFFFF", // Set point color to transparent (or omit this line)
         borderWidth: 2, // Set the line thickness
         tension: 0.1, // Smoothness of the line
@@ -50,10 +51,10 @@ const UserLineChart: React.FC = () => {
           display: false, // Remove grid lines
         },
         ticks: {
-          color: "#AB2849", // X-axis numbers color
+          color: colors.primary, // X-axis numbers color
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: colors.primary, // Set x-axis color to white
         },
       },
       y: {
@@ -62,10 +63,10 @@ const UserLineChart: React.FC = () => {
           display: false, // Optional: add grid lines for clarity
         },
         ticks: {
-          color: "#AB2849", // Y-axis numbers color
+          color: colors.primary, // Y-axis numbers color
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: colors.primary, // Set x-axis color to white
         },
       },
     },
@@ -73,7 +74,7 @@ const UserLineChart: React.FC = () => {
       legend: {
         display: false, // Show legend
         labels: {
-          color: "#AB2849", // Legend labels color
+          color: colors.primary, // Legend labels color
         },
       },
       tooltip: {

@@ -1,6 +1,7 @@
 import { ChartOptions } from "chart.js";
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import { colors } from "../utils/theme";
 
 const DonutTichets: React.FC = () => {
   const data = {
@@ -9,7 +10,10 @@ const DonutTichets: React.FC = () => {
       {
         label: "Membership stats",
         data: [25, 75],
-        backgroundColor: ["#EADFE3", "#AB2849"],
+        backgroundColor: [
+          colors.third,
+          colors.primary, // Using colors from the theme
+        ],
         borderWidth: 0, // Remove border width
         hoverOffset: 4,
       },

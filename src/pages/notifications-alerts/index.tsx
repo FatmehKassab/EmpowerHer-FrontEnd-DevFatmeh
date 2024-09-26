@@ -1,7 +1,6 @@
 import React from "react";
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
-import TableIssue from "../../components/common/TableIssue";
 
 const Notification = () => {
   const signUpRows = [
@@ -73,26 +72,6 @@ const Notification = () => {
       dateTime: "October 15 2024 9:00 AM - 5:00 PM",
       requestedBy: "Admin Name",
       response: "Yes",
-    },
-  ];
-  const issues = [
-    {
-      title: "Database Connection Timeout",
-      severity: "Critical",
-      timestamp: "2024-08-26 14:32:15",
-    },
-    {
-      title: "Database Connection Timeout",
-      severity: "Critical",
-      timestamp: "2024-08-26 14:32:15",
-    },
-  ];
-
-  const downtimes = [
-    {
-      description: "service downtime on aug 26",
-      impact:
-        "35% of users reported issues accessing 10% of event registrations failed.",
     },
   ];
 
