@@ -87,7 +87,7 @@ const TableRows: React.FC<TableRowsProps> = ({
             )}
             {showAmountAndType && <span>{row.amount}</span>}
             {showAmountAndType && <span>{row.type}</span>}
-            {showEmail && <span>{row.email}</span>}
+            {showEmail && <span className="text-center">{row.email}</span>}
             {showRequestedBy && (
               <span className="text-center pl-20">{row.requestedBy}</span>
             )}

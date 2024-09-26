@@ -108,6 +108,7 @@ const Notification = () => {
           textColor: "text-primary",
           onClick: () => alert(),
         }}
+        fullWidth
       >
         <TableRows
           rows={signUpRows}
