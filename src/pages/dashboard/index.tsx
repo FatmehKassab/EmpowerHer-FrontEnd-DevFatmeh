@@ -10,10 +10,11 @@ import Table from "../../components/common/Table";
 import Button from "../../components/common/Button";
 import RecentActivityItem from "../../components/RecentActivityItem";
 import DonutTickets from "../../components/DonutTickets";
-import HBarChart from "../../components/HBarChart";
+import HBarChart from "../../components/GrowthHBar";
 import VBarChart from "../../components/VBarChart";
 import DonutMembership from "../../components/DonutMembership";
 import DonutTichets from "../../components/DonutTickets";
+import GrowthHBar from "../../components/GrowthHBar";
 
 type MetricData = {
   icon: IconDefinition;
@@ -107,12 +108,10 @@ const Dashboard: React.FC = () => {
               bgColor={metric.bgColor}
             />
           ))}
-          <div className="">
-            <DonutMembership />
-          </div>
-          <div className="">
-            <DonutTichets />
-          </div>
+
+          <DonutMembership />
+
+          <DonutTichets />
         </div>
       </Table>
 
@@ -153,7 +152,7 @@ const Dashboard: React.FC = () => {
 
       <Table title="Reports and Analytics" fullWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <HBarChart />
+          <GrowthHBar />
           <VBarChart labels={eventLabels} data={eventData} />
         </div>
       </Table>
