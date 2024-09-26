@@ -76,6 +76,11 @@ const recentActivities = [
     change: "less Event",
   },
 ];
+const approvalData = [
+  { title: "pending user approvals", count: 200 },
+  { title: "pending event approvals", count: 15 },
+  { title: "platform issues", count: "7/2" },
+];
 
 const eventLabels = ["Event 1", "Event 2", "Event 3", "Event 4"];
 
@@ -152,24 +157,14 @@ const Dashboard: React.FC = () => {
       </Table>
       <Table title="notifications and alerts">
         <div className="flex flex-col gap-4">
-          <div className="flexBetween gap-10 ">
-            <h1 className="capitalize text-text font-medium text-nowrap">
-              pending user approvals
-            </h1>
-            <span className="text-primary font-medium">200</span>
-          </div>
-          <div className="flexBetween">
-            <h1 className="capitalize text-text font-medium text-nowrap">
-              pending event approvals
-            </h1>
-            <span className="text-primary font-medium">15</span>
-          </div>
-          <div className="flexBetween">
-            <h1 className="capitalize text-text font-medium text-nowrap">
-              platform issues
-            </h1>
-            <span className="text-primary font-medium">7/2</span>
-          </div>
+          {approvalData.map((item, index) => (
+            <div key={index} className="flexBetween gap-10">
+              <h1 className="capitalize text-text font-medium text-nowrap">
+                {item.title}
+              </h1>
+              <span className="text-primary font-medium">{item.count}</span>
+            </div>
+          ))}
         </div>
       </Table>
     </div>
