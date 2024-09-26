@@ -56,6 +56,7 @@ const metricsData: MetricData[] = [
     bgColor: "bg-boxC3",
   },
 ];
+
 const recentActivities = [
   {
     title: "New sign-ups",
@@ -76,6 +77,7 @@ const recentActivities = [
     change: "less Event",
   },
 ];
+
 const approvalData = [
   { title: "pending user approvals", count: 200 },
   { title: "pending event approvals", count: 15 },
@@ -83,8 +85,8 @@ const approvalData = [
 ];
 
 const eventLabels = ["Event 1", "Event 2", "Event 3", "Event 4"];
-
 const eventData = [36, 25, 45, 20];
+
 const Dashboard: React.FC = () => {
   return (
     <div className="flex flex-col gap-8">
@@ -136,7 +138,6 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="flexCenter pt-4 border-t border-slate-300">
-          {" "}
           <Button
             type="button"
             title="View full reports"
@@ -148,14 +149,14 @@ const Dashboard: React.FC = () => {
         </div>
       </Table>
 
-      <Table title="reports and analytics" fullWidth>
-        <div className=" grid grid-cols-3 ">
+      <Table title="Reports and Analytics" fullWidth>
+        <div className="grid grid-cols-3">
           <HBarChart />
-
           <VBarChart labels={eventLabels} data={eventData} />
         </div>
       </Table>
-      <Table title="notifications and alerts">
+
+      <Table title="Notifications and Alerts">
         <div className="flex flex-col gap-4">
           {approvalData.map((item, index) => (
             <div key={index} className="flexBetween gap-10">
