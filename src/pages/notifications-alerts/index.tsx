@@ -116,14 +116,14 @@ const Notification = () => {
           showEmail={true}
         />
       </Table>
-      <Table title="platform issues">
+      {/* <Table title="platform issues">
         <TableIssue
           errorCount={7}
           issues={issues}
           downtimeCount={2}
           downtimes={downtimes}
         />
-      </Table>
+      </Table> */}
       <Table title="pending event approvals">
         <TableRows
           rows={DRows}

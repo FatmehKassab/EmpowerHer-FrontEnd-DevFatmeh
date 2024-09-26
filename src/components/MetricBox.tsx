@@ -24,7 +24,7 @@ const MetricBox: React.FC<MetricBoxProps> = ({
 }) => {
   return (
     <div
-      className={`w-[15%] min-w-[180px] h-auto min-h-[210px] flex flex-col gap-1 px-4 py-5 ${bgColor} rounded-lg shadow-lg`}
+      className={`w-[15%] min-w-[180px] h-auto min-h-[220px] flex flex-col gap-1 px-4 py-5 ${bgColor} rounded-lg shadow-lg`}
     >
       <div
         className={`w-10 h-10 flexCenter ${bgIconColor} rounded-full text-white`}
