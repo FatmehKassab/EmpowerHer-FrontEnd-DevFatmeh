@@ -6,12 +6,13 @@ import {
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import MetricBox from "../../components/MetricBox";
 import Table from "../../components/common/Table";
-import DonutChart from "../../components/DonutChart";
+import DonutChart from "../../components/DonutMembership";
 import Button from "../../components/common/Button";
 import RecentActivityItem from "../../components/RecentActivityItem";
 import Chart2 from "../../components/Chart2";
 import HBarChart from "../../components/HBarChart";
 import VBarChart from "../../components/VBarChart";
+import DonutMembership from "../../components/DonutMembership";
 
 type MetricData = {
   icon: IconDefinition;
@@ -89,9 +90,9 @@ const eventData = [36, 25, 45, 20];
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="w-full flex flex-col  gap-8">
       <Table title="Key Metrics" fullWidth>
-        <div className="w-full flexCenter flex-wrap gap-10">
+        <div className="w-full flexBetween flex-wrap gap-10 ">
           {metricsData.map((metric, index) => (
             <MetricBox
               key={index}
@@ -106,7 +107,7 @@ const Dashboard: React.FC = () => {
             />
           ))}
           <div className="">
-            <DonutChart />
+            <DonutMembership />
           </div>
           <div className="">
             <Chart2 />
@@ -150,7 +151,7 @@ const Dashboard: React.FC = () => {
       </Table>
 
       <Table title="Reports and Analytics" fullWidth>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <HBarChart />
           <VBarChart labels={eventLabels} data={eventData} />
         </div>

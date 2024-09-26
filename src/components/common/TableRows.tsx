@@ -98,9 +98,9 @@ const TableRows: React.FC<TableRowsProps> = ({
                   <Button
                     type="button"
                     title="Approve"
-                    variantColor="btn-primary"
+                    variantColor="btn-primary "
                     variantSize="btn-table"
-                    textColor="text-white"
+                    textColor="text-white "
                     onClick={() => alert("Button clicked!")}
                   />
                 </div>

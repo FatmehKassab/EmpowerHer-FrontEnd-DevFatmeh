@@ -63,11 +63,11 @@ const Sidebar = () => {
           alt="Logo"
           width={200}
           height={50}
-          className=" min-w-[200px] object-cover"
+          className=" min-w-[150px] object-cover"
         />
       </div>
 
-      <div className="w-full h-[90%] p-5">
+      <div className="w-full h-[90%] p-2">
         {menuItems.map((menuItem, index) => (
           <NavLink key={index} to={menuItem.path}>
             <MenuItem

@@ -97,7 +97,7 @@ const Notification = () => {
   ];
 
   return (
-    <div className="flexCenter flex-wrap gap-8">
+    <div className="flex flex-wrap gap-8">
       <Table
         title="pending user approvals"
         buttonProps={{
