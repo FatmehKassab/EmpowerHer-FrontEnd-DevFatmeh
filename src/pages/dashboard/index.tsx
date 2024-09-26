@@ -15,6 +15,7 @@ import VBarChart from "../../components/VBarChart";
 import DonutMembership from "../../components/DonutMembership";
 import DonutTichets from "../../components/DonutTickets";
 import GrowthHBar from "../../components/GrowthHBar";
+import InsightsVBar from "../../components/InsightsVBar";
 
 type MetricData = {
   icon: IconDefinition;
@@ -153,7 +154,7 @@ const Dashboard: React.FC = () => {
       <Table title="Reports and Analytics" fullWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <GrowthHBar />
-          <VBarChart labels={eventLabels} data={eventData} />
+          <InsightsVBar />
         </div>
       </Table>
 

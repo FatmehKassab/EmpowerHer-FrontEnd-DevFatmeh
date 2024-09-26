@@ -19,23 +19,22 @@ ChartJS.register(
   ChartDataLabels
 );
 
-const GrowthHBar: React.FC = () => {
-  const labels = ["Su", "Sa", "Fr", "Th", "We", "Tu", "Mo"];
+const InsightsVBar: React.FC = () => {
+  const labels = ["Event 1", "Event 2", "Event 3", "Event 4"];
 
   const data = {
     labels: labels,
     datasets: [
       {
-        axis: "y", // Enables horizontal bars
         label: "Users",
-        data: [36, 23, 27, 14, 45, 19, 31],
-        backgroundColor: "#AB2849", // Set bars color to white
+        data: [36, 25, 45, 20],
+        backgroundColor: "#AB2849", // Set bars color
       },
     ],
   };
 
   const options: ChartOptions<"bar"> = {
-    indexAxis: "y", // Ensure horizontal chart by setting indexAxis to 'y'
+    indexAxis: "x", // Ensure vertical chart by setting indexAxis to 'x'
     responsive: true,
     scales: {
       x: {
@@ -58,7 +57,7 @@ const GrowthHBar: React.FC = () => {
           color: "#AB2849", // Make y-axis numbers white
         },
         border: {
-          color: "#AB2849", // Set x-axis color to white
+          color: "#AB2849", // Set y-axis color to white
         },
       },
     },
@@ -85,11 +84,8 @@ const GrowthHBar: React.FC = () => {
 
   return (
     <div className="flex justify-between flex-col ">
-      <h2 className="font-semibold text-text">User Growth</h2>
-      <div className="flex items-center gap-1">
-        <span className="w-3 h-3 px-2 rounded-sm bg-primary"></span>
-        <span className="text-sm text-text">Users</span>
-      </div>
+      <h2 className="font-semibold text-text">Insights</h2>
+
       <div className="w-full h-auto">
         <Bar data={data} options={options} />
       </div>
@@ -97,4 +93,4 @@ const GrowthHBar: React.FC = () => {
   );
 };
 
-export default GrowthHBar;
+export default InsightsVBar;
