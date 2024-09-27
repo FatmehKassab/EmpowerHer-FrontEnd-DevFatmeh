@@ -44,7 +44,7 @@ export const metricsData = (activeUsersData: ActiveUsersData | null) => [
       activeUsersData && activeUsersData.percentageChange.startsWith("+")
         ? "text-change"
         : "text-primary",
-    change: activeUsersData?.percentageChange.startsWith("+")
+    change: activeUsersData?.percentageChange.startsWith("+" || "-")
       ? "more"
       : "less" || "",
     bgColor: "bg-boxC1",

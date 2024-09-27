@@ -52,14 +52,12 @@ const TableRows: React.FC<TableRowsProps> = ({
         >
           <span>Name</span>
           {showDateRegistered && <span>Date Registered</span>}
-          {showDateTime && (
-            <span className="text-center pl-32">Date & Time</span>
-          )}
+          {showDateTime && <span className="text-center ">Date & Time</span>}
           {showAmountAndType && <span>Amount</span>}
           {showAmountAndType && <span>Type</span>}
           {showEmail && <span className="text-center">Email</span>}
           {showRequestedBy && (
-            <span className="text-center pl-20">Requested By</span>
+            <span className="text-center ">Requested By</span>
           )}
           {showResponse && <span className="text-center">Response</span>}
 
@@ -81,15 +79,13 @@ const TableRows: React.FC<TableRowsProps> = ({
             <span className="text-nowrap">{row.name}</span>
             {showDateRegistered && <span>{row.date}</span>}
             {showDateTime && (
-              <span className="text-center pl-20 text-nowrap">
-                {row.dateTime}
-              </span>
+              <span className="text-center text-nowrap">{row.dateTime}</span>
             )}
             {showAmountAndType && <span>{row.amount}</span>}
             {showAmountAndType && <span>{row.type}</span>}
             {showEmail && <span className="text-center">{row.email}</span>}
             {showRequestedBy && (
-              <span className="text-center pl-20">{row.requestedBy}</span>
+              <span className="text-center ">{row.requestedBy}</span>
             )}
 
             {showResponse && (
