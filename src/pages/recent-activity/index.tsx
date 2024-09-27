@@ -1,66 +1,21 @@
+// src/components/RecentActivity.tsx
+
 import React from "react";
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
 import TableList from "../../components/common/TableList";
+import { signUpsData, transactionsData } from "./recentActivityData";
 
 const RecentActivity = () => {
-  const signUpsData = [
-    { name: "Omar B", date: "8/28/2024 1:22 PM" },
-    { name: "Omar B", date: "8/28/2024 12:15 AM" },
-    { name: "Omar B", date: "8/28/2024 1:22 PM" },
-    { name: "Omar B", date: "8/28/2024 1:22 PM" },
-    { name: "Omar B", date: "8/28/2024 1:22 PM" },
-    { name: "Omar B", date: "8/28/2024 1:22 PM" },
-  ];
-
-  const transactionsData = [
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 1:22 PM",
-    },
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 12:15 AM",
-    },
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 1:22 PM",
-    },
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 1:22 PM",
-    },
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 1:22 PM",
-    },
-    {
-      name: "Omar B",
-      amount: "$80.00",
-      type: "User(P)",
-      date: "8/28/2024 1:22 PM",
-    },
-  ];
-
   return (
     <div className="flex flex-wrap gap-8">
       <Table
-        title="new sign-ups"
+        title="New Sign-Ups"
         changePercentage="15.3% "
         change="more"
         buttonProps={{
           type: "button",
-          title: "This month",
+          title: "This Month",
           variantColor: "btn-border",
           variantSize: "btn-table",
           textColor: "text-primary",
@@ -71,12 +26,12 @@ const RecentActivity = () => {
       </Table>
 
       <Table
-        title="recent transactions"
+        title="Recent Transactions"
         changePercentage="2.1%"
-        change=" less"
+        change="less"
         buttonProps={{
           type: "button",
-          title: "This month",
+          title: "This Month",
           variantColor: "btn-border",
           variantSize: "btn-table",
           textColor: "text-primary",
@@ -89,13 +44,14 @@ const RecentActivity = () => {
           showAmountAndType={true}
         />
       </Table>
+
       <Table
-        title="recent event"
+        title="Recent Events"
         changePercentage="1"
         change="less event"
         buttonProps={{
           type: "button",
-          title: "This month",
+          title: "This Month",
           variantColor: "btn-border",
           variantSize: "btn-table",
           textColor: "text-primary",
