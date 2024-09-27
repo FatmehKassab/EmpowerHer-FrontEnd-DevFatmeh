@@ -1,96 +1,40 @@
-import {
-  faAddressCard,
-  faMoneyBillTrendUp,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import React from "react";
+import useFetch from "../../hooks/useFetch"; // Adjust the import path
+
 import MetricBox from "../../components/MetricBox";
 import Table from "../../components/common/Table";
 import Button from "../../components/common/Button";
 import RecentActivityItem from "../../components/RecentActivityItem";
-import DonutMembership from "../../components/DonutMembership";
-import DonutTichets from "../../components/DonutTickets";
 import GrowthHBar from "../../components/GrowthHBar";
 import InsightsVBar from "../../components/InsightsVBar";
 import UserLineChart from "../../components/UserLineChart";
+import DonutMembership from "../../components/DonutMembership";
+import DonutTichets from "../../components/DonutTickets";
 
-type MetricData = {
-  icon: IconDefinition;
-  bgIconColor: string;
-  value: string | number;
-  label: string;
-  change: string;
-  changeColor: string;
-  changePercentage: string;
-  bgColor: string;
-};
-
-const metricsData: MetricData[] = [
-  {
-    icon: faUserPlus,
-    bgIconColor: "bg-primary",
-    value: 200,
-    label: "Active Users",
-    changePercentage: "+15.3%",
-    changeColor: "text-change",
-    change: "more",
-    bgColor: "bg-boxC1",
-  },
-  {
-    icon: faMoneyBillTrendUp,
-    bgIconColor: "bg-iconC2",
-    value: "$1.2k",
-    label: "Total Revenue",
-    changePercentage: "-5.3%",
-    changeColor: "text-primary",
-    change: "less",
-    bgColor: "bg-boxC2",
-  },
-  {
-    icon: faAddressCard,
-    bgIconColor: "bg-iconC3",
-    value: 230,
-    label: "Pending Registrations",
-    changePercentage: "+25.1%",
-    changeColor: "text-change",
-    change: "more",
-    bgColor: "bg-boxC3",
-  },
-];
-
-const recentActivities = [
-  {
-    title: "New sign-ups",
-    count: 21,
-    changePercentage: "15.3% ",
-    change: "more",
-  },
-  {
-    title: "Recent transactions",
-    count: 200,
-    changePercentage: "2.17% ",
-    change: "less",
-  },
-  {
-    title: "Recent Event",
-    count: 2,
-    changePercentage: "1 ",
-    change: "less Event",
-  },
-];
-
-const approvalData = [
-  { title: "pending user approvals", count: 200 },
-  { title: "pending event approvals", count: 15 },
-  { title: "platform issues", count: "7/2" },
-];
+import { ActiveUsersData } from "../../types/types";
+import { approvalData, metricsData, recentActivities } from "./dashboardData";
 
 const Dashboard: React.FC = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const {
+    data: activeUsersData,
+    loading,
+    error,
+  } = useFetch(`${apiUrl}/api/active-users/monthly-comparison`) as {
+    data: ActiveUsersData | null;
+    loading: boolean;
+    error: string | null;
+  };
+
+  if (loading) return <div>Loading data, please wait...</div>;
+  if (error) return <div className="text-red-500">Error: {error}</div>;
+
   return (
-    <div className="w-full flex flex-col  gap-8">
+    <div className="w-full flex flex-col gap-8">
+      {/* Metrics Section */}
       <Table title="Key Metrics" fullWidth>
-        <div className="w-full flexBetween flex-wrap gap-10 ">
-          {metricsData.map((metric, index) => (
+        <div className="w-full flexBetween flex-wrap gap-10">
+          {metricsData(activeUsersData).map((metric, index) => (
             <MetricBox
               key={index}
               icon={metric.icon}
@@ -103,13 +47,10 @@ const Dashboard: React.FC = () => {
               bgColor={metric.bgColor}
             />
           ))}
-
           <DonutMembership />
-
           <DonutTichets />
         </div>
       </Table>
-
       <Table
         title="Recent activity"
         buttonProps={{
@@ -145,6 +86,7 @@ const Dashboard: React.FC = () => {
         </div>
       </Table>
 
+      {/* Reports and Analytics Section */}
       <Table title="Reports and Analytics" fullWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <GrowthHBar />
@@ -153,6 +95,7 @@ const Dashboard: React.FC = () => {
         </div>
       </Table>
 
+      {/* Notifications Section */}
       <Table title="Notifications and Alerts">
         <div className="flex flex-col gap-4">
           {approvalData.map((item, index) => (
