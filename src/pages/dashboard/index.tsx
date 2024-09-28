@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch"; // Adjust the import path
-
 import MetricBox from "../../components/MetricBox";
 import Table from "../../components/common/Table";
 import Button from "../../components/common/Button";
@@ -9,18 +8,35 @@ import GrowthHBar from "../../components/GrowthHBar";
 import InsightsVBar from "../../components/InsightsVBar";
 import UserLineChart from "../../components/UserLineChart";
 import DonutMembership from "../../components/DonutMembership";
-import DonutTickets from "../../components/DonutTickets"; // Fix typo in import
+import DonutTickets from "../../components/DonutTickets";
+import { useNavigate } from "react-router-dom";
 
+import { ActiveUsersData, MappedEvent, MappedUser } from "../../types/types";
+import { recentActivities } from "./dashboardData";
 import {
-  ActiveUsersData,
-  ApiResponse,
-  MappedEvent,
-  MappedUser,
-} from "../../types/types";
-import { metricsData, recentActivities } from "./dashboardData";
+  faAddressCard,
+  faMoneyBillTrendUp,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
+
+interface User {
+  name: string;
+  date: string;
+}
+
+interface ApiResponse {
+  total: number;
+  "percentage of comparison between current month and previous month": string;
+  users: {
+    name: string;
+    "Date Registered": string;
+  }[];
+  pendingUsersCurrentMonthDetails: MappedUser[];
+}
 
 const Dashboard: React.FC = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
   const {
     data: activeUsersData,
     loading: loadingActiveUsers,
@@ -36,44 +52,85 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
+  const [signUpsData, setSignUpsData] = useState<User[]>([]);
+  const [changePercentage, setChangePercentage] = useState<string>("");
+  const [change, setChange] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+  const [totalRevenue, setTotalRevenue] = useState<number>(0);
+  const [revenueChangePercentage, setRevenueChangePercentage] =
+    useState<string>("");
+  const [totalPendingReg, setTotalPendingReg] = useState<number>(0);
+  const [pendingRegChangePercentage, setPendingRegChangePercentage] =
+    useState<string>("");
+  // Fetch total revenue
   useEffect(() => {
-    const fetchEvents = async () => {
-      setLoading(true);
+    const fetchTotalRevenue = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/pending-events"
-        );
-        const data: ApiResponse = await response.json();
-
-        // Map the events from the API response to the desired structure
-        setEvents(
-          data.events.map((event) => ({
-            name: event.name,
-            dateTime: event.date_time,
-            requestedBy: event.requested_by,
-            response: "Pending",
-          }))
-        );
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occurred.");
-        }
-      } finally {
-        setLoading(false);
+        const response = await fetch(`${apiUrl}/api/total-revenue`);
+        const data = await response.json();
+        setTotalRevenue(data.total_revenue); // Assuming the response has a 'total' field
+        setRevenueChangePercentage(data.comparison); // Adjust as per your API response
+      } catch (error) {
+        console.error("Error fetching total revenue:", error);
       }
     };
 
+    fetchTotalRevenue();
+  }, [apiUrl]);
+
+  useEffect(() => {
+    const fetchPendingRegistrations = async () => {
+      try {
+        const response = await fetch(
+          `${apiUrl}/api/pending-users/monthly-comparison`
+        );
+        const data = await response.json();
+        setTotalPendingReg(data.TotalOfPendingUsers); // Assuming the response has a 'total' field
+        setPendingRegChangePercentage(data.percentageChange); // Adjust as per your API response
+      } catch (error) {
+        console.error("Error fetching total revenue:", error);
+      }
+    };
+
+    fetchPendingRegistrations();
+  }, [apiUrl]);
+
+  // Fetch newly registered users
+
+  useEffect(() => {
+    // Fetch data from the API route
+    fetch("http://localhost:8080/api/newly-registered-users-total-comparison")
+      .then((response) => response.json())
+      .then((data: ApiResponse) => {
+        // Update the table data with the fetched data
+        setSignUpsData(
+          data.users.map((user) => ({
+            name: user.name,
+            date: user["Date Registered"],
+          }))
+        );
+        setTotal(data.total);
+        setChange(
+          data[
+            "percentage of comparison between current month and previous month"
+          ]
+        );
+        // setChange("more"); // Based on the API response
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  // Fetch pending users
+  useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:8080/api/pending-users/monthly-comparison"
+          `${apiUrl}/api/pending-users/monthly-comparison`
         );
         const data: ApiResponse = await response.json();
 
-        // Define the type for user
         setUsers(
           data.pendingUsersCurrentMonthDetails.map((user: MappedUser) => ({
             name: user.name,
@@ -92,12 +149,52 @@ const Dashboard: React.FC = () => {
       }
     };
 
-    fetchEvents();
     fetchUsers();
-  }, []);
+  }, [apiUrl]);
+
+  const metricsData = (activeUsersData: ActiveUsersData | null) => {
+    // Ensure activeUsersData is not null or undefined
+    if (!activeUsersData) {
+      return [];
+    }
+
+    const changeColor = "text-primary";
+
+    return [
+      {
+        icon: faUserPlus,
+        bgIconColor: "bg-primary",
+        value: activeUsersData.TotalOfActiveUsers ?? 0,
+        label: "Active Users",
+        changePercentage: activeUsersData.percentageChange || "0%",
+        changeColor: "text-change",
+        change: activeUsersData.percentageChange ? "more" : "less",
+        bgColor: "bg-boxC1",
+      },
+      {
+        icon: faMoneyBillTrendUp,
+        bgIconColor: "bg-iconC2",
+        value: totalRevenue ? `${totalRevenue.toLocaleString()}` : "$0", // Use dynamic data
+        label: "Total Revenue",
+        changePercentage: revenueChangePercentage || "0%", // Use fetched revenue change percentage
+        changeColor: changeColor,
+        change: revenueChangePercentage ? "" : "",
+        bgColor: "bg-boxC2",
+      },
+      {
+        icon: faAddressCard,
+        bgIconColor: "bg-iconC3",
+        value: totalPendingReg ? `${totalPendingReg.toLocaleString()}` : "0", // Use dynamic data
+        label: "Pending Registrations",
+        changePercentage: pendingRegChangePercentage || "0%", // Use fetched revenue change percentage
+        changeColor: "text-change",
+        change: pendingRegChangePercentage ? "more" : "less",
+        bgColor: "bg-boxC3",
+      },
+    ];
+  };
 
   const pendingUsersCount = users.length;
-  const pendingEventsCount = events.length;
 
   if (loading || loadingActiveUsers)
     return <div>Loading data, please wait...</div>;
@@ -128,8 +225,9 @@ const Dashboard: React.FC = () => {
           <DonutTickets />
         </div>
       </Table>
+
       <Table
-        title="Recent activity"
+        title="Recent Activity"
         buttonProps={{
           type: "button",
           title: "This month",
@@ -141,6 +239,12 @@ const Dashboard: React.FC = () => {
         fullWidth
       >
         <div className="w-full flexBetween flex-wrap gap-10 pb-4">
+          <RecentActivityItem
+            title="New Sign-Ups"
+            count={total}
+            change={change} // Use change directly
+          />
+
           {recentActivities.map((activity, index) => (
             <RecentActivityItem
               key={index}
@@ -158,7 +262,7 @@ const Dashboard: React.FC = () => {
             variantColor="btn-primary"
             variantSize="btn-table"
             textColor="text-white"
-            onClick={() => alert("Button clicked!")}
+            onClick={() => navigate("/recent-activity")}
           />
         </div>
       </Table>
@@ -173,6 +277,7 @@ const Dashboard: React.FC = () => {
       </Table>
 
       {/* Notifications Section */}
+      {/* Uncomment if needed */}
       <Table title="Notifications and Alerts">
         <div className="flex flex-col gap-4">
           <div className="flexBetween gap-10">
@@ -183,14 +288,12 @@ const Dashboard: React.FC = () => {
               {pendingUsersCount}
             </span>
           </div>
-          <div className="flexBetween gap-10">
+          {/* <div className="flexBetween gap-10">
             <h1 className="capitalize text-text font-medium text-nowrap">
               Pending event approvals
             </h1>
-            <span className="text-primary font-medium">
-              {pendingEventsCount}
-            </span>
-          </div>
+            <span className="text-primary font-medium">{pendingUsersCount}</span>
+          </div> */}
         </div>
       </Table>
     </div>

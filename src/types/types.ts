@@ -11,6 +11,12 @@ export interface ActiveUsersData {
   percentageChange: string;
 }
 
+
+export interface TotalRevenueData {
+  TotalRevenue: number;
+  percentageChange: string;
+}
+
 export interface RecentActivity {
   title: string;
   count: number;

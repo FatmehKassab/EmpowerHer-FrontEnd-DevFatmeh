@@ -22,11 +22,11 @@
 }
 
 .btn-primary {
-  @apply bg-primary;
+  @apply bg-primary hover:bg-phover;
 }
 
 .btn-border {
-  @apply border-2 border-primary bg-white;
+  @apply border-2 border-primary bg-white hover:bg-third;
 }
 
 .btn-table {

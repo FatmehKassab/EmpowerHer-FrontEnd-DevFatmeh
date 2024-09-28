@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#AB2849', // dark pink
+        phover:'#e14c71',
         secondary: '#EED5DB', //light pink
         third: '#EADFE3', // bg color lighter pink aa gray
         text:'#666666', //grey

@@ -1,18 +1,61 @@
-// src/components/RecentActivity.tsx
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
 import TableList from "../../components/common/TableList";
-import { signUpsData, transactionsData } from "./recentActivityData";
+import { transactionsData } from "./recentActivityData";
 
-const RecentActivity = () => {
+// Define types for API response and the data
+interface User {
+  name: string;
+  date: string;
+}
+
+interface ApiResponse {
+  total: number;
+  "percentage of comparison between current month and previous month": string;
+  users: {
+    name: string;
+    "Date Registered": string;
+  }[];
+}
+
+const RecentActivity: React.FC = () => {
+  const [signUpsData, setSignUpsData] = useState<User[]>([]);
+  const [changePercentage, setChangePercentage] = useState<string>("");
+  const [change, setChange] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    // Fetch data from the API route
+    fetch("http://localhost:8080/api/newly-registered-users-total-comparison")
+      .then((response) => response.json())
+      .then((data: ApiResponse) => {
+        // Update the table data with the fetched data
+        setSignUpsData(
+          data.users.map((user) => ({
+            name: user.name,
+            date: user["Date Registered"],
+          }))
+        );
+        setTotal(data.total);
+        setChangePercentage(
+          data[
+            "percentage of comparison between current month and previous month"
+          ]
+        );
+        setChange(""); // Based on the API response
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <div className="flex flex-wrap gap-8">
       <Table
         title="New Sign-Ups"
-        changePercentage="15.3% "
-        change="more"
+        changePercentage={changePercentage}
+        change={change}
         buttonProps={{
           type: "button",
           title: "This Month",
@@ -22,7 +65,7 @@ const RecentActivity = () => {
           onClick: () => alert(),
         }}
       >
-        <TableRows rows={signUpsData} total={21} showDateRegistered={true} />
+        <TableRows rows={signUpsData} total={total} showDateRegistered={true} />
       </Table>
 
       <Table

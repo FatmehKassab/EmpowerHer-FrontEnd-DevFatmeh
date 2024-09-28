@@ -7,12 +7,7 @@ import {
 import { ActiveUsersData } from "../../types/types";
 
 export const recentActivities = [
-  {
-    title: "New sign-ups",
-    count: 21,
-    changePercentage: "15.3% ",
-    change: "more",
-  },
+ 
   {
     title: "Recent transactions",
     count: 200,
