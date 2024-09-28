@@ -27,7 +27,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
 }) => {
   return (
     <div>
-      <div className="py-1 px-3 ">
+      <div className="py-1 px-3">
         <NavLink
           to={path || ""}
           className={({ isActive }) =>
@@ -39,16 +39,15 @@ const MenuItem: React.FC<MenuItemProps> = ({
             <FontAwesomeIcon icon={icon} />
             <span>{title}</span>
           </div>
-
           {showChevron && subMenu.length > 0 && (
             <FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} />
           )}
         </NavLink>
       </div>
       {isExpanded && subMenu.length > 0 && (
-        <div className="w-full flex  pt-2">
+        <div className="w-full flex pt-2">
           <div className="border-l w-[10%] ml-[30px]"></div>
-          <div className="w-[90%] flex flex-col gap-2 ">
+          <div className="w-[90%] flex flex-col gap-2">
             {subMenu.map((subItem) => (
               <NavLink
                 key={subItem.title}

@@ -62,3 +62,4 @@ export interface ApiResponse {
   pendingUsersCurrentMonth: number;
   pendingUsersCurrentMonthDetails: MappedUser[];
 }
+

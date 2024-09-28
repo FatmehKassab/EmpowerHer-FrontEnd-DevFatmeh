@@ -278,24 +278,22 @@ const Dashboard: React.FC = () => {
 
       {/* Notifications Section */}
       {/* Uncomment if needed */}
-      <Table title="Notifications and Alerts">
+      {/* <Table title="Notifications and Alerts">
         <div className="flex flex-col gap-4">
           <div className="flexBetween gap-10">
             <h1 className="capitalize text-text font-medium text-nowrap">
               Pending user approvals
             </h1>
-            <span className="text-primary font-medium">
-              {pendingUsersCount}
-            </span>
+            <span className="text-primary font-medium">{pendingUsersCount}</span>
           </div>
-          {/* <div className="flexBetween gap-10">
+          <div className="flexBetween gap-10">
             <h1 className="capitalize text-text font-medium text-nowrap">
               Pending event approvals
             </h1>
             <span className="text-primary font-medium">{pendingUsersCount}</span>
-          </div> */}
+          </div>
         </div>
-      </Table>
+      </Table> */}
     </div>
   );
 };
