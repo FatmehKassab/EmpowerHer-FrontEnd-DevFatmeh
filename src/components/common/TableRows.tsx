@@ -53,15 +53,15 @@ const TableRows: React.FC<TableRowsProps> = ({
           <span>Name</span>
           {showDateRegistered && <span>Date Registered</span>}
           {showDateTime && <span className="text-center ">Date & Time</span>}
-          {showAmountAndType && <span>Amount</span>}
-          {showAmountAndType && <span>Type</span>}
+          {showAmountAndType && <span className="text-center">Amount</span>}
+          {showAmountAndType && <span className="text-center">Type</span>}
           {showEmail && <span className="text-center">Email</span>}
           {showRequestedBy && (
             <span className="text-center ">Requested By</span>
           )}
-          {showResponse && <span className="text-center">Response</span>}
+          {showResponse && <span className="text-right pr-14">Response</span>}
 
-          {showAmountAndType && <span className="text-center">Date</span>}
+          {showAmountAndType && <span className="text-right">Date</span>}
         </div>
 
         {/* Table Rows */}
@@ -81,15 +81,19 @@ const TableRows: React.FC<TableRowsProps> = ({
             {showDateTime && (
               <span className="text-center text-nowrap">{row.dateTime}</span>
             )}
-            {showAmountAndType && <span>{row.amount}</span>}
-            {showAmountAndType && <span>{row.type}</span>}
+            {showAmountAndType && (
+              <span className="text-center">{row.amount}</span>
+            )}
+            {showAmountAndType && (
+              <span className="text-center">{row.type}</span>
+            )}
             {showEmail && <span className="text-center">{row.email}</span>}
             {showRequestedBy && (
               <span className="text-center ">{row.requestedBy}</span>
             )}
 
             {showResponse && (
-              <div className="flexCenter gap-2 ">
+              <div className="flex justify-end items-center gap-2 ">
                 <div>
                   <Button
                     type="button"

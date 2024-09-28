@@ -81,52 +81,64 @@ const RecentActivity: React.FC = () => {
 
   return (
     <div className="flex flex-wrap gap-8">
-      <Table
-        title="New Sign-Ups"
-        changePercentage={changePercentage}
-        change={change}
-        buttonProps={{
-          type: "button",
-          title: "This Month",
-          variantColor: "btn-border",
-          variantSize: "btn-table",
-          textColor: "text-primary",
-          onClick: () => alert(),
-        }}
-      >
-        <TableRows rows={signUpsData} total={total} showDateRegistered={true} />
-      </Table>
+      <div className="w-full flex   gap-8">
+        <div className="w-[40%]">
+          {" "}
+          <Table
+            title="New Sign-Ups"
+            changePercentage={changePercentage}
+            change={change}
+            buttonProps={{
+              type: "button",
+              title: "This Month",
+              variantColor: "btn-border",
+              variantSize: "btn-table",
+              textColor: "text-primary",
+              onClick: () => alert(),
+            }}
+            fullWidth
+          >
+            <TableRows
+              rows={signUpsData}
+              total={total}
+              showDateRegistered={true}
+            />
+          </Table>
+        </div>
+        <div className="w-[60%]">
+          <Table
+            title="Recent Transactions"
+            changePercentage={transactionsComparison}
+            change=""
+            buttonProps={{
+              type: "button",
+              title: "This Month",
+              variantColor: "btn-border",
+              variantSize: "btn-table",
+              textColor: "text-primary",
+              onClick: () => alert(),
+            }}
+            fullWidth
+          >
+            <TableRows
+              rows={transactionsData.map((transaction) => {
+                const formattedTransaction = {
+                  ...transaction,
+                  amount: `$${transaction.amount.toString()}`, // Prefix amount with a $ symbol
+                  date: new Date(transaction.dateTime).toLocaleString(), // Format dateTime to a readable string
+                };
 
-      <Table
-        title="Recent Transactions"
-        changePercentage={transactionsComparison}
-        change=""
-        buttonProps={{
-          type: "button",
-          title: "This Month",
-          variantColor: "btn-border",
-          variantSize: "btn-table",
-          textColor: "text-primary",
-          onClick: () => alert(),
-        }}
-      >
-        <TableRows
-          rows={transactionsData.map((transaction) => {
-            const formattedTransaction = {
-              ...transaction,
-              amount: `$${transaction.amount.toString()}`, // Prefix amount with a $ symbol
-              date: new Date(transaction.dateTime).toLocaleString(), // Format dateTime to a readable string
-            };
+                // Debug: Log formatted transaction to verify the values
+                console.log("Formatted Transaction:", formattedTransaction);
 
-            // Debug: Log formatted transaction to verify the values
-            console.log("Formatted Transaction:", formattedTransaction);
-
-            return formattedTransaction;
-          })}
-          total={transactionsTotal}
-          showAmountAndType={true}
-        />
-      </Table>
+                return formattedTransaction;
+              })}
+              total={transactionsTotal}
+              showAmountAndType={true}
+            />
+          </Table>
+        </div>
+      </div>
 
       <Table
         title="Recent Events"
