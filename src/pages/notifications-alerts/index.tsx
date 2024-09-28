@@ -9,6 +9,9 @@ const Notification = () => {
   const [users, setUsers] = useState<MappedUser[]>([]); // State for users
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [totalPendingReg, setTotalPendingReg] = useState<number>(0);
+  const [pendingRegChangePercentage, setPendingRegChangePercentage] =
+    useState<string>("");
 
   // Fetch events
   useEffect(() => {
@@ -53,12 +56,12 @@ const Notification = () => {
         );
         const data = await response.json();
 
-        // Define the type for user
+        setTotalPendingReg(data.pendingUsersCurrentMonth); // Assuming the response has a 'total' field
+        setPendingRegChangePercentage(data.percentageChange); // Adjust as per your API response
         setUsers(
           data.pendingUsersCurrentMonthDetails.map((user: MappedUser) => ({
             name: user.name,
             email: user.email, // Email from the API
-            response: "Pending", // Set a default response
           }))
         );
       } catch (err: unknown) {
@@ -94,7 +97,7 @@ const Notification = () => {
       >
         <TableRows
           rows={users} // Use the fetched users
-          total={users.length} // Total users length
+          total={totalPendingReg} // Total users length
           showResponse={true}
           showEmail={true} // Show email column for users
         />

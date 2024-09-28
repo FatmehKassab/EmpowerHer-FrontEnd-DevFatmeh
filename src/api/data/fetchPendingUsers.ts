@@ -1,11 +1,10 @@
-import { MappedUser } from "../../types/types";
+import { PendingUsers } from "../../types/types";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
-export const fetchPendingUsers = async (apiUrl: string): Promise<MappedUser[]> => {
+export const fetchPendingUsers = async (): Promise<PendingUsers> => {
   const response = await fetch(`${apiUrl}/api/pending-users/monthly-comparison`);
-  if (!response.ok) {
-    throw new Error("Error fetching pending users");
-  }
-  const data = await response.json();
-  return data.pendingUsersCurrentMonthDetails;
+  if (!response.ok) throw new Error("Failed to fetch pending users");
+  return response.json();
 };

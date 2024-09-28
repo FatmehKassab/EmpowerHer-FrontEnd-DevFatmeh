@@ -1,10 +1,55 @@
-// src/data/dashboardData.ts
-import {
-  faAddressCard,
-  faMoneyBillTrendUp,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { ActiveUsersData } from "../../types/types";
+
+import { faAddressCard, faMoneyBillTrendUp, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+export interface MetricsData {
+  totalActiveUsers: number;
+  activeChangePercentage: string;
+  totalRevenue: number;
+  revenueChangePercentage: string;
+  totalPendingReg: number;
+  pendingRegChangePercentage: string;
+}
+
+export const getMetricsData = ({
+  totalActiveUsers,
+  activeChangePercentage,
+  totalRevenue,
+  revenueChangePercentage,
+  totalPendingReg,
+  pendingRegChangePercentage,
+}: MetricsData) => {
+  return [
+    {
+      icon: faUserPlus,
+      bgIconColor: "bg-primary",
+      value: totalActiveUsers ? `${totalActiveUsers.toLocaleString()}` : "0",
+      label: "Active Users",
+      changePercentage: activeChangePercentage || "0%",
+      changeColor: "text-change",
+      change: activeChangePercentage ? "more" : "less",
+      bgColor: "bg-boxC1",
+    },
+    {
+      icon: faMoneyBillTrendUp,
+      bgIconColor: "bg-iconC2",
+      value: totalRevenue ? `${totalRevenue.toLocaleString()}` : "$0",
+      label: "Total Revenue",
+      changePercentage: revenueChangePercentage || "0%",
+      changeColor: "text-primary",
+      change: revenueChangePercentage ? "" : "",
+      bgColor: "bg-boxC2",
+    },
+    {
+      icon: faAddressCard,
+      bgIconColor: "bg-iconC3",
+      value: totalPendingReg ? `${totalPendingReg.toLocaleString()}` : "0",
+      label: "Pending Registrations",
+      changePercentage: pendingRegChangePercentage || "0%",
+      changeColor: "text-change",
+      change: pendingRegChangePercentage ? "more" : "less",
+      bgColor: "bg-boxC3",
+    },
+  ];
+};
 
 export const recentActivities = [
  
@@ -21,42 +66,4 @@ export const approvalData = [
   { title: "Pending user approvals", count: 200 },
   { title: "Pending event approvals", count: 15 },
   { title: "Platform issues", count: "7/2" },
-];
-
-export const metricsData = (activeUsersData: ActiveUsersData | null) => [
-  {
-    icon: faUserPlus,
-    bgIconColor: "bg-primary",
-    value: activeUsersData?.TotalOfActiveUsers ?? 0,
-    label: "Active Users",
-    changePercentage: activeUsersData?.percentageChange || "0%",
-    changeColor:
-      activeUsersData && activeUsersData.percentageChange.startsWith("+")
-        ? "text-change"
-        : "text-primary",
-    change: activeUsersData?.percentageChange.startsWith("+" || "-")
-      ? "more"
-      : "less" || "",
-    bgColor: "bg-boxC1",
-  },
-  {
-    icon: faMoneyBillTrendUp,
-    bgIconColor: "bg-iconC2",
-    value: "$1.2k", // Static value (can be replaced by dynamic data)
-    label: "Total Revenue",
-    changePercentage: "-5.3%",
-    changeColor: "text-primary",
-    change: "less",
-    bgColor: "bg-boxC2",
-  },
-  {
-    icon: faAddressCard,
-    bgIconColor: "bg-iconC3",
-    value: 230, // Static value (can be replaced by dynamic data)
-    label: "Pending Registrations",
-    changePercentage: "+25.1%",
-    changeColor: "text-change",
-    change: "more",
-    bgColor: "bg-boxC3",
-  },
 ];

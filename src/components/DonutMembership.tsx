@@ -29,7 +29,6 @@ const DonutMembership: React.FC = () => {
   const fetchData = async () => {
     try {
       const apiData: MembershipStatsResponse = await fetchMembershipStats();
-      console.log("Full API Response:", apiData); // To verify structure in console
 
       // Ensure the expected data structure is present
       if (apiData && apiData.basic && apiData.corporate && apiData.individual) {

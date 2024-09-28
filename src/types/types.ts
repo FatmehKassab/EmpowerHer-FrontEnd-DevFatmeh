@@ -13,8 +13,8 @@ export interface ActiveUsersData {
 
 
 export interface TotalRevenueData {
-  TotalRevenue: number;
-  percentageChange: string;
+  total_revenue: number;
+  comparison: string;
 }
 
 export interface RecentActivity {
@@ -53,13 +53,46 @@ export interface MappedEvent {
 export interface MappedUser {
   name: string;
   email: string;
-  response: string; // Ensure this is required or optional as needed
+  response: string; 
 }
 
-export interface ApiResponse {
-  total: number;
-
+//type for prnding registrations
+export interface PendingUsers {
+  TotalOfPendingUsers: number;
   pendingUsersCurrentMonth: number;
+  pendingUsersLastMonth:number;
+  percentageChange:string;
   pendingUsersCurrentMonthDetails: MappedUser[];
 }
 
+
+export interface User  {
+  name: string;
+  date: string;
+}
+
+
+export interface Transaction  {
+  name: string;
+  amount: string; // Change to string
+  type: string;
+  dateTime: string;
+}
+
+
+export interface NewSignUps  {
+  total: number;
+  "percentage of comparison between current month and previous month": string;
+  users: {
+    name: string;
+    "Date Registered": string;
+  }[];
+  
+}
+
+
+export interface Transactions  {
+  total: number;
+  comparison: string;
+  transactions: Transaction[];
+}
