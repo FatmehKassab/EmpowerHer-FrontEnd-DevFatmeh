@@ -10,15 +10,17 @@ import NotFound from "./pages/not-found";
 
 const App = () => {
   return (
-    <section className="w-auto h-auto min-h-screen flex bg-third">
-      <div className="fixed  w-[17%]  h-screen">
+    <section className="w-full h-screen flex bg-third">
+      <div className="fixed w-[17%] h-full">
         <Sidebar />
       </div>
-      <div className="w-[83%] h-max flex flex-col ml-[17%]">
+
+      <div className="w-[83%] flex flex-col ml-[17%]">
         <div className="fixed top-0 left-[17%] w-[83%] z-10">
           <Topbar />
         </div>
-        <div className="flexCenter py-24 overflow-visible   p-5">
+
+        <div className="flex-1 pt-24 p-5 overflow-auto">
           <Routes>
             <Route index element={<Dashboard />} />
             <Route path="/recent-activity" element={<RecentActivity />} />

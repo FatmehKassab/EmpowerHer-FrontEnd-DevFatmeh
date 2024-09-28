@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
 import TableList from "../../components/common/TableList";
-import { transactionsData } from "./recentActivityData";
 
-// Define types for API response and the data
+// Define types for the data
 interface User {
   name: string;
   date: string;
+}
+
+interface Transaction {
+  name: string;
+  amount: string; // Change to string
+  type: string;
+  dateTime: string;
 }
 
 interface ApiResponse {
@@ -19,18 +25,27 @@ interface ApiResponse {
   }[];
 }
 
+interface TransactionsApiResponse {
+  total: number;
+  comparison: string;
+  transactions: Transaction[];
+}
+
 const RecentActivity: React.FC = () => {
   const [signUpsData, setSignUpsData] = useState<User[]>([]);
   const [changePercentage, setChangePercentage] = useState<string>("");
   const [change, setChange] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
+  const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
+  const [transactionsTotal, setTransactionsTotal] = useState<number>(0);
+  const [transactionsComparison, setTransactionsComparison] =
+    useState<string>("");
 
   useEffect(() => {
-    // Fetch data from the API route
+    // Fetch sign-ups data from the API
     fetch("http://localhost:8080/api/newly-registered-users-total-comparison")
       .then((response) => response.json())
       .then((data: ApiResponse) => {
-        // Update the table data with the fetched data
         setSignUpsData(
           data.users.map((user) => ({
             name: user.name,
@@ -43,10 +58,24 @@ const RecentActivity: React.FC = () => {
             "percentage of comparison between current month and previous month"
           ]
         );
-        setChange(""); // Based on the API response
+        setChange(""); // Update based on the API response
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching sign-ups data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch recent transactions data from the API
+    fetch("http://localhost:8080/api/recent-transactions")
+      .then((response) => response.json())
+      .then((data: TransactionsApiResponse) => {
+        setTransactionsData(data.transactions);
+        setTransactionsTotal(data.total);
+        setTransactionsComparison(data.comparison);
+      })
+      .catch((error) => {
+        console.error("Error fetching transactions data:", error);
       });
   }, []);
 
@@ -70,8 +99,8 @@ const RecentActivity: React.FC = () => {
 
       <Table
         title="Recent Transactions"
-        changePercentage="2.1%"
-        change="less"
+        changePercentage={transactionsComparison}
+        change=""
         buttonProps={{
           type: "button",
           title: "This Month",
@@ -82,8 +111,19 @@ const RecentActivity: React.FC = () => {
         }}
       >
         <TableRows
-          rows={transactionsData}
-          total={120}
+          rows={transactionsData.map((transaction) => {
+            const formattedTransaction = {
+              ...transaction,
+              amount: `$${transaction.amount.toString()}`, // Prefix amount with a $ symbol
+              date: new Date(transaction.dateTime).toLocaleString(), // Format dateTime to a readable string
+            };
+
+            // Debug: Log formatted transaction to verify the values
+            console.log("Formatted Transaction:", formattedTransaction);
+
+            return formattedTransaction;
+          })}
+          total={transactionsTotal}
           showAmountAndType={true}
         />
       </Table>
@@ -100,6 +140,7 @@ const RecentActivity: React.FC = () => {
           textColor: "text-primary",
           onClick: () => alert(),
         }}
+        fullWidth
       >
         <TableList />
       </Table>

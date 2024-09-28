@@ -5,7 +5,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from "chart.js";
 import { colors } from "../utils/theme"; // Adjust the path based on your project structure
 import { MembershipStatsResponse } from "../types/types";
-import { fetchMembershipStats } from "../api/data/membershipsStatsApi";
+import { fetchMembershipStats } from "../api/data/fetchMembershipsStats";
 
 // Register chart plugins
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);

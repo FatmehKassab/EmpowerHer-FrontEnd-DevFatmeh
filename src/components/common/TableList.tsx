@@ -20,13 +20,22 @@ const TableList = () => {
       revenue: "$70,000",
     },
     {
-      title: "EmpowerHer Workshop: Leadership Redefined",
-      date: "November 20, 2024, 10:00 AM - 4:00 PM",
-      location: "New York, NY (In-person)",
+      title: "EmpowerHer Summit: Leading the charge",
+      date: "October 15, 2024, 9:00 AM - 5:00 PM",
+      location: "Online Event (via Zoom)",
       status: "Upcoming",
-      registrations: 300,
-      ticketsSold: 250,
-      revenue: "$45,000",
+      registrations: 500,
+      ticketsSold: 400,
+      revenue: "$70,000",
+    },
+    {
+      title: "EmpowerHer Networking: Connect & Grow",
+      date: "December 5, 2024, 6:00 PM - 9:00 PM",
+      location: "Online Event (via Zoom)",
+      status: "Upcoming",
+      registrations: 200,
+      ticketsSold: 150,
+      revenue: "$30,000",
     },
   ];
 
@@ -41,13 +50,15 @@ const TableList = () => {
   ];
 
   return (
-    <div className="flexCenter flex-col">
+    <div className="flexCenter w-full flex-col">
       <h1 className="text-primary font-medium pb-4">Total: {events.length}</h1>
-      <div className="flex gap-10 divide-x-2 divide-slate-300">
+      <div className="flex flex-wrap gap-y-10 w-full">
         {events.map((event, index) => (
           <div
             key={index}
-            className={`flex flex-col ${index !== 0 ? "pl-10" : ""}`}
+            className={`flex w-1/2 flex-col ${
+              index % 2 !== 0 ? " border-l-2 border-slate-300 pl-10" : ""
+            }`}
           >
             <h1 className="text-primary font-medium text-lg">{event.title}</h1>
             <ul className="pt-2">

@@ -24,6 +24,13 @@ interface User {
   date: string;
 }
 
+interface Transaction {
+  name: string;
+  amount: string; // Change to string
+  type: string;
+  dateTime: string;
+}
+
 interface ApiResponse {
   total: number;
   "percentage of comparison between current month and previous month": string;
@@ -32,6 +39,12 @@ interface ApiResponse {
     "Date Registered": string;
   }[];
   pendingUsersCurrentMonthDetails: MappedUser[];
+}
+
+interface TransactionsApiResponse {
+  total: number;
+  comparison: string;
+  transactions: Transaction[];
 }
 
 const Dashboard: React.FC = () => {
@@ -61,6 +74,11 @@ const Dashboard: React.FC = () => {
     useState<string>("");
   const [totalPendingReg, setTotalPendingReg] = useState<number>(0);
   const [pendingRegChangePercentage, setPendingRegChangePercentage] =
+    useState<string>("");
+
+  const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
+  const [transactionsTotal, setTransactionsTotal] = useState<number>(0);
+  const [transactionsComparison, setTransactionsComparison] =
     useState<string>("");
   // Fetch total revenue
   useEffect(() => {
@@ -151,6 +169,20 @@ const Dashboard: React.FC = () => {
 
     fetchUsers();
   }, [apiUrl]);
+
+  useEffect(() => {
+    // Fetch recent transactions data from the API
+    fetch("http://localhost:8080/api/recent-transactions")
+      .then((response) => response.json())
+      .then((data: TransactionsApiResponse) => {
+        setTransactionsData(data.transactions);
+        setTransactionsTotal(data.total);
+        setTransactionsComparison(data.comparison);
+      })
+      .catch((error) => {
+        console.error("Error fetching transactions data:", error);
+      });
+  }, []);
 
   const metricsData = (activeUsersData: ActiveUsersData | null) => {
     // Ensure activeUsersData is not null or undefined
@@ -243,6 +275,11 @@ const Dashboard: React.FC = () => {
             title="New Sign-Ups"
             count={total}
             change={change} // Use change directly
+          />
+          <RecentActivityItem
+            title="Recent Transactions"
+            count={transactionsTotal}
+            change={transactionsComparison} // Use change directly
           />
 
           {recentActivities.map((activity, index) => (

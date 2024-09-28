@@ -37,9 +37,9 @@ const TableRows: React.FC<TableRowsProps> = ({
   showResponse = false,
 }) => {
   return (
-    <div className="flexCenter flex-col">
+    <div className="flexCenter flex-col ">
       <h1 className="text-primary font-medium">Total: {total}</h1>
-      <div className="w-full h-auto font-medium flex-col">
+      <div className="w-full  h-auto font-medium flex-col">
         {/* Table Header */}
         <div
           className={`${
