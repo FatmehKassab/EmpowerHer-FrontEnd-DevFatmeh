@@ -28,15 +28,16 @@ const Notification = () => {
         />
       </Table>
 
-      {/* <Table title="Pending Event Approvals" fullWidth>
-        <TableRows
+      <Table title="Pending Event Approvals" fullWidth>
+        {/* <TableRows
           rows={events} // Use the fetched events
           total={events.length} // Total events length
           showResponse={true}
           showDateTime={true}
           showRequestedBy={true}
-        />
-      </Table> */}
+        /> */}
+        hi
+      </Table>
     </div>
   );
 };
