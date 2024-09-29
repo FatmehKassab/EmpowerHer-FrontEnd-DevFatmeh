@@ -1,13 +1,11 @@
-// DonutMembership.tsx
 import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from "chart.js";
-import { colors } from "../utils/theme"; // Adjust the path based on your project structure
+import { colors } from "../utils/theme";
 import { MembershipStatsResponse } from "../types/types";
 import { fetchMembershipStats } from "../api/data/fetchMembershipsStats";
 
-// Register chart plugins
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
 const DonutMembership: React.FC = () => {
@@ -16,7 +14,7 @@ const DonutMembership: React.FC = () => {
     datasets: [
       {
         label: "Membership stats",
-        data: [0, 0, 0], // Initial data
+        data: [0, 0, 0],
         backgroundColor: [colors.primary, colors.iconC3, colors.black],
         borderWidth: 0,
       },
@@ -30,14 +28,12 @@ const DonutMembership: React.FC = () => {
     try {
       const apiData: MembershipStatsResponse = await fetchMembershipStats();
 
-      // Ensure the expected data structure is present
       if (apiData && apiData.basic && apiData.corporate && apiData.individual) {
         // Convert percentage strings to numbers for chart data
         const basicValue = parseFloat(apiData.basic);
         const corporateValue = parseFloat(apiData.corporate);
         const individualValue = parseFloat(apiData.individual);
 
-        // Update chart data
         setChartData({
           labels: ["Basic", "Corporate", "Individual"],
           datasets: [
@@ -47,8 +43,6 @@ const DonutMembership: React.FC = () => {
             },
           ],
         });
-
-        // Set the total memberships value
         setTotalMemberships(apiData.totalMemberships);
         setLoading(false);
       } else {
@@ -63,7 +57,7 @@ const DonutMembership: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Fetch data when the component mounts
+  }, []);
 
   const options: ChartOptions<"doughnut"> = {
     plugins: {
