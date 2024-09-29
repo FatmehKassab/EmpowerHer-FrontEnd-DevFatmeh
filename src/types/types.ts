@@ -53,7 +53,6 @@ export interface MappedEvent {
 export interface MappedUser {
   name: string;
   email: string;
-  response: string; 
 }
 
 
@@ -62,7 +61,7 @@ export interface PendingUsers {
   pendingUsersCurrentMonth: number;
   pendingUsersLastMonth:number;
   percentageChange:string;
-  pendingUsersCurrentMonthDetails: MappedUser[];
+  pendingUsersCurrentMonthDetails: MappedUser[]
 }
 
 

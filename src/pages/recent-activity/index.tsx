@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
 import TableList from "../../components/common/TableList";
