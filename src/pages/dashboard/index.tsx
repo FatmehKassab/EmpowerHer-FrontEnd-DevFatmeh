@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
   const { totalRevenue, revenueChangePercentage } = useFetchTotalRevenue();
   const { totalPendingReg, pendingRegChangePercentage } =
     useFetchPendingRegistrations();
-  const { change, total } = useFetchNewlyRegisteredUsers();
+  const { change, total, signUpsData } = useFetchNewlyRegisteredUsers();
   const { transactionsTotal, transactionsComparison } =
     useFetchRecentTransactions();
 

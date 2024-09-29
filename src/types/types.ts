@@ -26,28 +26,28 @@ export interface RecentActivity {
 
 export interface ApprovalData {
   title: string;
-  count: number | string; // Depending on your data structure
+  count: number | string; 
 }
 
-// src/types.ts
+
 export interface ApiResponse {
   total: number;
   events: Event[];
 }
 
-// src/types/types.ts
+
 
 export interface Event {
   name: string;
-  date_time: string;  // Ensure this is the property name from the API
-  requested_by: string;  // Ensure this is the property name from the API
+  date_time: string;  
+  requested_by: string; 
 }
 
 export interface MappedEvent {
   name: string;
-  dateTime: string;  // Change to match the expected format
-  requestedBy: string;  // Change to match the expected format
-  response: string;  // Additional property if needed
+  dateTime: string;  
+  requestedBy: string; 
+  response: string; 
 }
 
 export interface MappedUser {
@@ -56,7 +56,7 @@ export interface MappedUser {
   response: string; 
 }
 
-//type for prnding registrations
+
 export interface PendingUsers {
   TotalOfPendingUsers: number;
   pendingUsersCurrentMonth: number;
@@ -74,9 +74,22 @@ export interface User  {
 
 export interface Transaction  {
   name: string;
-  amount: string; // Change to string
+  amount: string;
   type: string;
   dateTime: string;
+}
+
+export interface Transactions  {
+  total: number;
+  comparison: string;
+  transactions:
+  {
+    name: string;
+  amount: string;
+  type: string;
+  dateTime: string;
+
+  } 
 }
 
 
@@ -90,9 +103,3 @@ export interface NewSignUps  {
   
 }
 
-
-export interface Transactions  {
-  total: number;
-  comparison: string;
-  transactions: Transaction[];
-}
