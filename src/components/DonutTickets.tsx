@@ -3,7 +3,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { colors } from "../utils/theme";
 
-const DonutTichets: React.FC = () => {
+const DonutTickets: React.FC = () => {
   const data = {
     labels: ["Basic", "Premium"],
     datasets: [
@@ -50,4 +50,4 @@ const DonutTichets: React.FC = () => {
   );
 };
 
-export default DonutTichets;
+export default DonutTickets;
