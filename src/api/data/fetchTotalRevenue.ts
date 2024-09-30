@@ -6,7 +6,7 @@ export const fetchTotalRevenue = async (token: string): Promise<TotalRevenueData
   const response = await fetch(`${apiUrl}/api/total-revenue`, {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${token}`, // Pass JWT token for authentication
+      'Authorization': `Bearer ${token}`, 
       'Content-Type': 'application/json'
     }
   });

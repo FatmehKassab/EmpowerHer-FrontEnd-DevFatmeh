@@ -4,6 +4,7 @@ Installation Instructions for EmpowerHer Project
 -npm install to install all nodes modules and packages
 -npm start to start your app
 
+
 Project Structure
 The project follows a specific architecture for better organization and maintainability:
 

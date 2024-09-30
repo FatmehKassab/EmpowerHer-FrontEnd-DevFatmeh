@@ -8,11 +8,10 @@ import {
   Tooltip,
   ChartOptions,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { colors } from "../utils/theme";
-import useFetchReservedEvents from "../hooks/useFetchReservedEvents";
+import { useFetchReservedEvents } from "../hooks";
 
-// Register necessary components from Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,7 +21,7 @@ ChartJS.register(
 );
 
 const InsightsVBar: React.FC = () => {
-  const { chartData, loading, error } = useFetchReservedEvents(); // Use the custom hook
+  const { chartData, loading, error } = useFetchReservedEvents();
   const labels = ["Event 1", "Event 2", "Event 3", "Event 4"];
 
   const data = {
@@ -30,68 +29,67 @@ const InsightsVBar: React.FC = () => {
     datasets: [
       {
         label: "Ticket Quantities",
-        data: chartData, // Use the processed data
-        backgroundColor: colors.primary, // Set bars color
+        data: chartData,
+        backgroundColor: colors.primary,
       },
     ],
   };
 
   const options: ChartOptions<"bar"> = {
-    indexAxis: "x", // Ensure vertical chart by setting indexAxis to 'x'
+    indexAxis: "x",
     responsive: true,
     scales: {
       x: {
-        beginAtZero: true, // Start x-axis at 0
+        beginAtZero: true,
         grid: {
-          display: false, // Remove grid lines
+          display: false,
         },
         ticks: {
-          color: colors.primary, // Make x-axis numbers white
+          color: colors.primary,
         },
         border: {
-          color: colors.primary, // Set x-axis color to white
+          color: colors.primary,
         },
       },
       y: {
         grid: {
-          display: false, // Remove grid lines
+          display: false,
         },
         ticks: {
-          color: colors.primary, // Make y-axis numbers white
+          color: colors.primary,
         },
         border: {
-          color: colors.primary, // Set y-axis color to white
+          color: colors.primary,
         },
       },
     },
     plugins: {
       legend: {
-        display: false, // Remove legend
+        display: false,
       },
       tooltip: {
         callbacks: {
           label: function (context) {
-            return context.dataset.label + ": " + context.raw; // Display only the value on tooltip
+            return context.dataset.label + ": " + context.raw;
           },
         },
       },
-      // Enable data labels
+
       datalabels: {
-        color: "#FFFFFF", // Set data label color to white
+        color: "#FFFFFF",
         anchor: "start",
         align: "end",
-        formatter: (value: number) => value, // Display the value itself
+        formatter: (value: number) => value,
       },
     },
   };
 
-  // Render loading or error messages if applicable
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a spinner component if desired
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error fetching data: {error}</div>; // Display error message
+    return <div>Error fetching data: {error}</div>;
   }
 
   return (

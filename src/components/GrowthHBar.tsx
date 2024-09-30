@@ -11,8 +11,7 @@ import {
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import Button from "./common/Button";
 import { colors } from "../utils/theme";
-
-import useFetchUsers from "../hooks/useFetchUsers";
+import { useFetchUsers } from "../hooks";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -26,66 +25,66 @@ ChartJS.register(
 const GrowthHBar: React.FC = () => {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
-  const userData = useFetchUsers(token); // Use the custom hook
+  const userData = useFetchUsers(token);
   const labels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const data = {
     labels: labels,
     datasets: [
       {
-        axis: "y", // Enables horizontal bars
+        axis: "y",
         label: "Users",
-        data: userData, // Use the fetched user data
-        backgroundColor: colors.primary, // Using colors from the theme
+        data: userData,
+        backgroundColor: colors.primary,
       },
     ],
   };
 
   const options: ChartOptions<"bar"> = {
-    indexAxis: "y", // Ensure horizontal chart by setting indexAxis to 'y'
+    indexAxis: "y",
     responsive: true,
     scales: {
       x: {
-        beginAtZero: true, // Start x-axis at 0
+        beginAtZero: true,
         grid: {
-          display: false, // Remove grid lines
+          display: false,
         },
         ticks: {
-          color: colors.primary, // Make x-axis numbers white
+          color: colors.primary,
         },
         border: {
-          color: colors.primary, // Set x-axis color to white
+          color: colors.primary,
         },
       },
       y: {
         grid: {
-          display: false, // Remove grid lines
+          display: false,
         },
         ticks: {
-          color: colors.primary, // Make y-axis numbers white
+          color: colors.primary,
         },
         border: {
-          color: colors.primary, // Set x-axis color to white
+          color: colors.primary,
         },
       },
     },
     plugins: {
       legend: {
-        display: false, // Remove legend
+        display: false,
       },
       tooltip: {
         callbacks: {
           label: function (context) {
-            return context.dataset.label + ": " + context.raw; // Display only the value on tooltip
+            return context.dataset.label + ": " + context.raw;
           },
         },
       },
       // Enable data labels
       datalabels: {
-        color: "#FFFFFF", // Set data label color to white
+        color: "#FFFFFF",
         anchor: "start",
         align: "end",
-        formatter: (value: number) => value, // Display the value itself
+        formatter: (value: number) => value,
       },
     },
   };

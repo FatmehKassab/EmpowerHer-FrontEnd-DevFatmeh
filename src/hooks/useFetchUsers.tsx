@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../api/data/fetchUsers";
 
-const useFetchUsers = (token: string) => {
+export const useFetchUsers = (token: string) => {
   const [userData, setUserData] = useState<number[]>(Array(7).fill(0));
 
   useEffect(() => {
@@ -28,5 +28,3 @@ const useFetchUsers = (token: string) => {
 
   return userData;
 };
-
-export default useFetchUsers;

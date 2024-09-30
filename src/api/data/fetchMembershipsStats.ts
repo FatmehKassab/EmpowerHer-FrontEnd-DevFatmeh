@@ -1,4 +1,3 @@
-// fetchData.ts
 import axios from "axios";
 import { MembershipStatsResponse } from "../../types/types";
 

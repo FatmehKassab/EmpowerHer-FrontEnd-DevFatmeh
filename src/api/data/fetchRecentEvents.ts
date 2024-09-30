@@ -6,8 +6,7 @@ export const fetchRecentEvents = async (token:string): Promise<RecentEvents> => 
   const response = await fetch(`${apiUrl}/api/recent-events`,{
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${token}`, // Pass JWT token for authentication
-      'Content-Type': 'application/json'
+      'Authorization': `Bearer ${token}`, 
     }
   });
   if (!response.ok) throw new Error("Failed to fetch pending events data");
