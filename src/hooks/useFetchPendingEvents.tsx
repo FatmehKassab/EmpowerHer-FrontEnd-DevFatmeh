@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchPendingEvents } from "../api/data/fetchPendingEvents";
-import { MappedEvent } from "../types/types";
+import { MappedEvent, PendingEvents } from "../types/types";
 
-export const useFetchPendingEvents = () => {
+export const useFetchPendingEvents = (token: string) => {
   const [pendingEvents, setPendingEvents] = useState<MappedEvent[]>([]);
+  const [pendingEventsTotal, setPendingEventsTotal] = useState<number>(0);
 
   useEffect(() => {
     const getPendingEvents = async () => {
       try {
-        const data = await fetchPendingEvents();
+        const data: PendingEvents = await fetchPendingEvents(token);
+        setPendingEventsTotal(data.total);
         setPendingEvents(
           data.events.map((event) => ({
             name: event.name,
@@ -23,7 +25,7 @@ export const useFetchPendingEvents = () => {
     };
 
     getPendingEvents();
-  }, []);
+  }, [token]);
 
-  return { pendingEvents };
+  return { pendingEventsTotal, pendingEvents };
 };

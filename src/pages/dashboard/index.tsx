@@ -15,17 +15,24 @@ import { useFetchTotalRevenue } from "../../hooks/useFetchTotalRevenue";
 import { useFetchPendingRegistrations } from "../../hooks/useFetchPendingRegistrations";
 import { useFetchRecentTransactions } from "../../hooks/useFetchRecentTransactions";
 import { useFetchNewlyRegisteredUsers } from "../../hooks/useFetchNewlyRegisteredUsers";
+import { useFetchPendingEvents } from "../../hooks/useFetchPendingEvents";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
 
   const { totalActiveUsers, activeChangePercentage } = useFetchActiveUsers();
-  const { totalRevenue, revenueChangePercentage } = useFetchTotalRevenue();
+  const { totalRevenue, revenueChangePercentage, loading, error } =
+    useFetchTotalRevenue(`${token}`);
   const { totalPendingReg, pendingRegChangePercentage } =
     useFetchPendingRegistrations();
   const { change, total, signUpsData } = useFetchNewlyRegisteredUsers();
   const { transactionsTotal, transactionsComparison } =
     useFetchRecentTransactions();
+  const { pendingEventsTotal, pendingEvents } = useFetchPendingEvents(
+    `${token}`
+  );
 
   const metrics = getMetricsData({
     totalActiveUsers,
@@ -126,9 +133,9 @@ const Dashboard: React.FC = () => {
             <h1 className="capitalize text-text font-medium text-nowrap">
               Pending event approvals
             </h1>
-            {/* <span className="text-primary font-medium">
-              {pendingEventsCount}
-            </span> */}
+            <span className="text-primary font-medium">
+              {pendingEventsTotal}
+            </span>
           </div>
         </div>
       </Table>

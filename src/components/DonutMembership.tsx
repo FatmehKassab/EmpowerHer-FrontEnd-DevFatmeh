@@ -1,63 +1,14 @@
-import React, { useEffect, useState } from "react";
+// components/DonutMembership.tsx
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from "chart.js";
-import { colors } from "../utils/theme";
-import { MembershipStatsResponse } from "../types/types";
-import { fetchMembershipStats } from "../api/data/fetchMembershipsStats";
+import { useFetchMembershipsStats } from "../hooks/useFetchMembershipsStats";
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
 const DonutMembership: React.FC = () => {
-  const [chartData, setChartData] = useState({
-    labels: ["Basic", "Corporate", "Individual"],
-    datasets: [
-      {
-        label: "Membership stats",
-        data: [0, 0, 0],
-        backgroundColor: [colors.primary, colors.iconC3, colors.black],
-        borderWidth: 0,
-      },
-    ],
-  });
-  const [totalMemberships, setTotalMemberships] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchData = async () => {
-    try {
-      const apiData: MembershipStatsResponse = await fetchMembershipStats();
-
-      if (apiData && apiData.basic && apiData.corporate && apiData.individual) {
-        // Convert percentage strings to numbers for chart data
-        const basicValue = parseFloat(apiData.basic);
-        const corporateValue = parseFloat(apiData.corporate);
-        const individualValue = parseFloat(apiData.individual);
-
-        setChartData({
-          labels: ["Basic", "Corporate", "Individual"],
-          datasets: [
-            {
-              ...chartData.datasets[0],
-              data: [basicValue, corporateValue, individualValue],
-            },
-          ],
-        });
-        setTotalMemberships(apiData.totalMemberships);
-        setLoading(false);
-      } else {
-        throw new Error("Unexpected API response structure");
-      }
-    } catch (error: any) {
-      console.error("Error fetching membership stats:", error);
-      setError(error.message);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { chartData, loading, error } = useFetchMembershipsStats();
 
   const options: ChartOptions<"doughnut"> = {
     plugins: {

@@ -1,20 +1,28 @@
-import { ChartOptions } from "chart.js";
+// components/DonutTickets.tsx
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import { ChartOptions } from "chart.js";
 import { colors } from "../utils/theme";
+import { useFetchTicketsStatus } from "../hooks/useFetchTicketsStatus";
 
 const DonutTickets: React.FC = () => {
+  const { ticketData, loading } = useFetchTicketsStatus();
+
+  if (loading || !ticketData) {
+    return <div>Loading...</div>;
+  }
+
   const data = {
-    labels: ["Basic", "Premium"],
+    labels: ["Tickets Sold", "Tickets Remaining"],
     datasets: [
       {
-        label: "Membership stats",
-        data: [25, 75],
-        backgroundColor: [
-          colors.third,
-          colors.primary, // Using colors from the theme
+        label: "Ticket Stats",
+        data: [
+          ticketData.total_tickets_sold,
+          ticketData.total_tickets_remaining,
         ],
-        borderWidth: 0, // Remove border width
+        backgroundColor: [colors.primary, colors.third],
+        borderWidth: 0,
         hoverOffset: 4,
       },
     ],
@@ -29,21 +37,32 @@ const DonutTickets: React.FC = () => {
     },
   };
 
+  const percentageSold = parseFloat(ticketData.percentage_sold);
+  const percentageRemaining = parseFloat(ticketData.percentage_remaining);
+
   return (
     <div className="relative flex flex-col items-center gap-5">
       <div className="relative w-[180px] h-auto">
         <Doughnut data={data} options={options} />
         <div className="absolute inset-0 flexCenter">
-          <span className="text-xl font-bold text-primary">75%</span>{" "}
-          {/* Center percentage */}
+          <span className="text-xl font-bold text-primary">
+            {percentageSold}%
+          </span>
         </div>
       </div>
       <div className="text-center pb-5 font-semibold">
         <p className="text-primary">
-          Tickets Sold: <span className="text-text">500 (75%)</span>{" "}
+          Tickets Sold:{" "}
+          <span className="text-text">
+            {ticketData.total_tickets_sold} ({ticketData.percentage_sold})
+          </span>
         </p>
         <p className="text-primary">
-          Tickets Remaining: <span className="text-text">125 (25%)</span>{" "}
+          Tickets Remaining:{" "}
+          <span className="text-text">
+            {ticketData.total_tickets_remaining} (
+            {ticketData.percentage_remaining})
+          </span>
         </p>
       </div>
     </div>

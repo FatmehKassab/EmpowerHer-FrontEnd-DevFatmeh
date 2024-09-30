@@ -47,7 +47,7 @@ export interface MappedEvent {
   name: string;
   dateTime: string;  
   requestedBy: string; 
-  response: string; 
+ 
 }
 
 export interface MappedUser {
@@ -102,3 +102,11 @@ export interface NewSignUps  {
   
 }
 
+
+export interface TicketStatus {
+  total_tickets: number;
+  total_tickets_sold: number;
+  total_tickets_remaining: number;
+  percentage_sold: string;
+  percentage_remaining: string;
+}
