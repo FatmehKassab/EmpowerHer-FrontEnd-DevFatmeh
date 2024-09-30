@@ -36,6 +36,32 @@ export interface PendingEvents {
 }
 
 
+export interface RecentEvents {
+  total: number;
+  comparison: string;
+  events: MappedRecentEvent[];
+}
+
+export interface MappedRecentEvent {
+  title: string;
+  date_and_time: string;        
+  location: string;
+  number_of_registrations: number; 
+  total_tickets_sold: number;     
+  revenue_generated: string;    
+  deatils: string;   
+ 
+}
+export interface RecentEventApi {
+  title: string;
+  dateAndTime: string;  
+  location:string;       
+  numberOfRegistrations: number; 
+  totalTicketsSold: number;    
+  revenueGenerated: string;     
+  deatils: string;             
+}
+
 
 export interface Event {
   name: string;

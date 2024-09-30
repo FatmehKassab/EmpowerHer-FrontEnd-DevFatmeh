@@ -1,63 +1,31 @@
-type EventData = {
-  title: string;
-  date: string;
-  location: string;
-  status: string;
-  registrations: number;
-  ticketsSold: number;
-  revenue: string;
-};
+import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
+import { MappedRecentEvent, RecentEventApi } from "../../types/types";
 
 const TableList = () => {
-  const events: EventData[] = [
-    {
-      title: "EmpowerHer Summit: Leading the charge",
-      date: "October 15, 2024, 9:00 AM - 5:00 PM",
-      location: "Online Event (via Zoom)",
-      status: "Upcoming",
-      registrations: 500,
-      ticketsSold: 400,
-      revenue: "$70,000",
-    },
-    {
-      title: "EmpowerHer Summit: Leading the charge",
-      date: "October 15, 2024, 9:00 AM - 5:00 PM",
-      location: "Online Event (via Zoom)",
-      status: "Upcoming",
-      registrations: 500,
-      ticketsSold: 400,
-      revenue: "$70,000",
-    },
-    {
-      title: "EmpowerHer Networking: Connect & Grow",
-      date: "December 5, 2024, 6:00 PM - 9:00 PM",
-      location: "Online Event (via Zoom)",
-      status: "Upcoming",
-      registrations: 200,
-      ticketsSold: 150,
-      revenue: "$30,000",
-    },
-  ];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
 
-  // Define the keys in eventDetails as keys of EventData
-  const eventDetails: { label: string; key: keyof EventData }[] = [
-    { label: "Date & Time", key: "date" },
+  const { recentEventsTotal, recentEvents } = useFetchRecentEvents(`${token}`);
+
+  const eventDetails: { label: string; key: keyof RecentEventApi }[] = [
+    { label: "Date & Time", key: "dateAndTime" },
     { label: "Location", key: "location" },
-    { label: "Event Status", key: "status" },
-    { label: "Number of Registrations", key: "registrations" },
-    { label: "Total Tickets Sold", key: "ticketsSold" },
-    { label: "Revenue Generated", key: "revenue" },
+    { label: "Number of Registrations", key: "numberOfRegistrations" },
+    { label: "Total Tickets Sold", key: "totalTicketsSold" },
+    { label: "Revenue Generated", key: "revenueGenerated" },
   ];
 
   return (
     <div className="flexCenter w-full flex-col">
-      <h1 className="text-primary font-medium pb-4">Total: {events.length}</h1>
+      <h1 className="text-primary font-medium pb-4">
+        Total: {recentEventsTotal}
+      </h1>
       <div className="flex flex-wrap gap-y-10 w-full">
-        {events.map((event, index) => (
+        {recentEvents.map((event, index) => (
           <div
             key={index}
             className={`flex w-1/2 flex-col ${
-              index % 2 !== 0 ? " border-l-2 border-slate-300 pl-10" : ""
+              index % 2 !== 0 ? "border-l-2 border-slate-300 pl-10" : ""
             }`}
           >
             <h1 className="text-primary font-medium text-lg">{event.title}</h1>
@@ -67,6 +35,7 @@ const TableList = () => {
                   <span className="text-primary font-medium">
                     {detail.label}:{" "}
                   </span>
+
                   {event[detail.key]}
                 </li>
               ))}

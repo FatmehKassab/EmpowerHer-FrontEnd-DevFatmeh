@@ -9,13 +9,14 @@ import UserLineChart from "../../components/UserLineChart";
 import DonutMembership from "../../components/DonutMembership";
 import DonutTickets from "../../components/DonutTickets";
 import { useNavigate } from "react-router-dom";
-import { getMetricsData, recentActivities } from "./dashboardData";
+import { getMetricsData } from "./dashboardData";
 import { useFetchActiveUsers } from "../../hooks/useFetchActiveUsers";
 import { useFetchTotalRevenue } from "../../hooks/useFetchTotalRevenue";
 import { useFetchPendingRegistrations } from "../../hooks/useFetchPendingRegistrations";
 import { useFetchRecentTransactions } from "../../hooks/useFetchRecentTransactions";
 import { useFetchNewlyRegisteredUsers } from "../../hooks/useFetchNewlyRegisteredUsers";
 import { useFetchPendingEvents } from "../../hooks/useFetchPendingEvents";
+import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ const Dashboard: React.FC = () => {
   const { pendingEventsTotal, pendingEvents } = useFetchPendingEvents(
     `${token}`
   );
+  const { recentEventsTotal, recentEvents, recentEventsComparison } =
+    useFetchRecentEvents(`${token}`);
 
   const metrics = getMetricsData({
     totalActiveUsers,
@@ -90,14 +93,11 @@ const Dashboard: React.FC = () => {
             change={transactionsComparison}
           />
 
-          {recentActivities.map((activity, index) => (
-            <RecentActivityItem
-              key={index}
-              title={activity.title}
-              count={activity.count}
-              change={activity.change}
-            />
-          ))}
+          <RecentActivityItem
+            title="Recent Events"
+            count={recentEventsTotal}
+            change={recentEventsComparison}
+          />
         </div>
 
         <div className="flexCenter pt-4 border-t border-slate-300">

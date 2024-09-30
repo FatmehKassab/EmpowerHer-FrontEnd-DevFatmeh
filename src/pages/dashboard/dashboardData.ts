@@ -51,19 +51,4 @@ export const getMetricsData = ({
   ];
 };
 
-export const recentActivities = [
- 
 
-  {
-    title: "Recent Event",
-    count: 2,
-    changePercentage: "1 ",
-    change: "less Event",
-  },
-];
-
-export const approvalData = [
-  { title: "Pending user approvals", count: 200 },
-  { title: "Pending event approvals", count: 15 },
-  { title: "Platform issues", count: "7/2" },
-];

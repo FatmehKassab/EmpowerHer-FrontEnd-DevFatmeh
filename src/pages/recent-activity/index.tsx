@@ -3,13 +3,17 @@ import TableRows from "../../components/common/TableRows";
 import TableList from "../../components/common/TableList";
 import { useFetchNewlyRegisteredUsers } from "../../hooks/useFetchNewlyRegisteredUsers";
 import { useFetchRecentTransactions } from "../../hooks/useFetchRecentTransactions";
+import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
 
 const RecentActivity: React.FC = () => {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
   const { change, total, signUpsData, changePercentage } =
     useFetchNewlyRegisteredUsers();
   const { transactionsTotal, transactionsComparison, transactionsData } =
     useFetchRecentTransactions();
-
+  const { recentEventsTotal, recentEvents, recentEventsComparison } =
+    useFetchRecentEvents(`${token}`);
   return (
     <div className="flex flex-wrap gap-8">
       <div className="w-full flex   gap-8">
@@ -62,8 +66,8 @@ const RecentActivity: React.FC = () => {
 
       <Table
         title="Recent Events"
-        changePercentage="1"
-        change="less event"
+        changePercentage={recentEventsComparison}
+        change=""
         buttonProps={{
           type: "button",
           title: "This Month",
