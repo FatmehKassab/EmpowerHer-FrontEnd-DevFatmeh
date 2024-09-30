@@ -13,7 +13,7 @@ import {
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
 import Button from "./common/Button";
 import { colors } from "../utils/theme";
-import useFetchUsers from "../hooks/useFetchUsers";
+import { useFetchUsers } from "../hooks";
 
 // Register necessary components from Chart.js
 ChartJS.register(
