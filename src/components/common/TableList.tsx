@@ -1,5 +1,5 @@
 import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
-import { MappedRecentEvent, RecentEventApi } from "../../types/types";
+import { RecentEventApi } from "../../types/types";
 
 const TableList = () => {
   const token =

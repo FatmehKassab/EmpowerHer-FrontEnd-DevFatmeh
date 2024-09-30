@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
 import { colors } from "../utils/theme";
+import useFetchReservedEvents from "../hooks/useFetchReservedEvents";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -21,14 +22,15 @@ ChartJS.register(
 );
 
 const InsightsVBar: React.FC = () => {
+  const { chartData, loading, error } = useFetchReservedEvents(); // Use the custom hook
   const labels = ["Event 1", "Event 2", "Event 3", "Event 4"];
 
   const data = {
     labels: labels,
     datasets: [
       {
-        label: "Users",
-        data: [36, 25, 45, 20],
+        label: "Ticket Quantities",
+        data: chartData, // Use the processed data
         backgroundColor: colors.primary, // Set bars color
       },
     ],
@@ -82,6 +84,15 @@ const InsightsVBar: React.FC = () => {
       },
     },
   };
+
+  // Render loading or error messages if applicable
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a spinner component if desired
+  }
+
+  if (error) {
+    return <div>Error fetching data: {error}</div>; // Display error message
+  }
 
   return (
     <div className="flex justify-between flex-col ">

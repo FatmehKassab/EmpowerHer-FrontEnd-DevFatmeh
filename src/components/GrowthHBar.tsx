@@ -8,9 +8,11 @@ import {
   Tooltip,
   ChartOptions,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import Button from "./common/Button";
 import { colors } from "../utils/theme";
+
+import useFetchUsers from "../hooks/useFetchUsers";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -22,7 +24,10 @@ ChartJS.register(
 );
 
 const GrowthHBar: React.FC = () => {
-  const labels = ["Su", "Sa", "Fr", "Th", "We", "Tu", "Mo"];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
+  const userData = useFetchUsers(token); // Use the custom hook
+  const labels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const data = {
     labels: labels,
@@ -30,7 +35,7 @@ const GrowthHBar: React.FC = () => {
       {
         axis: "y", // Enables horizontal bars
         label: "Users",
-        data: [36, 23, 27, 14, 45, 19, 31],
+        data: userData, // Use the fetched user data
         backgroundColor: colors.primary, // Using colors from the theme
       },
     ],
