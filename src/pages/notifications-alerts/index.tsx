@@ -1,10 +1,12 @@
 import Table from "../../components/common/Table";
 import TableRows from "../../components/common/TableRows";
+import { useFetchPendingEvents } from "../../hooks/useFetchPendingEvents";
 import { useFetchPendingRegistrations } from "../../hooks/useFetchPendingRegistrations";
 
 const Notification = () => {
   const { totalPendingReg, pendingUsersCurrentMonthDetails } =
     useFetchPendingRegistrations();
+  const { pendingEvents } = useFetchPendingEvents();
 
   return (
     <div className="flex flex-wrap gap-8">
@@ -29,14 +31,13 @@ const Notification = () => {
       </Table>
 
       <Table title="Pending Event Approvals" fullWidth>
-        {/* <TableRows
-          rows={events} // Use the fetched events
-          total={events.length} // Total events length
+        <TableRows
+          rows={pendingEvents}
+          total={pendingEvents.length}
           showResponse={true}
           showDateTime={true}
           showRequestedBy={true}
-        /> */}
-        hi
+        />
       </Table>
     </div>
   );

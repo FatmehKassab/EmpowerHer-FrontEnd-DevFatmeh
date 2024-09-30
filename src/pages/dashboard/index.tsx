@@ -113,6 +113,25 @@ const Dashboard: React.FC = () => {
           <UserLineChart />
         </div>
       </Table>
+
+      <Table title="Notifications and Alerts">
+        <div className="flex flex-col gap-4">
+          <div className="flexBetween gap-10">
+            <h1 className="capitalize text-text font-medium text-nowrap">
+              Pending user approvals
+            </h1>
+            <span className="text-primary font-medium">{totalPendingReg}</span>
+          </div>
+          <div className="flexBetween gap-10">
+            <h1 className="capitalize text-text font-medium text-nowrap">
+              Pending event approvals
+            </h1>
+            {/* <span className="text-primary font-medium">
+              {pendingEventsCount}
+            </span> */}
+          </div>
+        </div>
+      </Table>
     </div>
   );
 };

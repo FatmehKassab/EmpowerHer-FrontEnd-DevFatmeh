@@ -30,7 +30,7 @@ export interface ApprovalData {
 }
 
 
-export interface ApiResponse {
+export interface PendingEvents {
   total: number;
   events: Event[];
 }
