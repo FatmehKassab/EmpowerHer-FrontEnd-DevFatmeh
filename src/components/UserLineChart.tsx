@@ -13,6 +13,7 @@ import {
 import ChartDataLabels from "chartjs-plugin-datalabels"; // Import the data labels plugin
 import Button from "./common/Button";
 import { colors } from "../utils/theme";
+import useFetchUsers from "../hooks/useFetchUsers";
 
 // Register necessary components from Chart.js
 ChartJS.register(
@@ -26,6 +27,9 @@ ChartJS.register(
 );
 
 const UserLineChart: React.FC = () => {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
+  const userData = useFetchUsers(token);
   const labels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const data = {
@@ -33,7 +37,7 @@ const UserLineChart: React.FC = () => {
     datasets: [
       {
         label: "Users",
-        data: [5, 15, 7, 9, 13, 30, 10], // Example data for each weekday
+        data: userData, // Example data for each weekday
         fill: false,
         borderColor: colors.primary, // Line color
         backgroundColor: "#FFFFFF", // Set point color to transparent (or omit this line)

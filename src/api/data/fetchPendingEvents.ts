@@ -2,6 +2,7 @@ import { PendingEvents } from "../../types/types";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+
 export const fetchPendingEvents = async (token:string): Promise<PendingEvents> => {
   const response = await fetch(`${apiUrl}/api/pending-events`,{
     method: 'GET',

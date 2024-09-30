@@ -20,8 +20,8 @@ import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
+  const token = process.env.JWT_SECRET;
+  console.log("Token from .env:", process.env.JWT_SECRET);
 
   const { totalActiveUsers, activeChangePercentage } = useFetchActiveUsers();
   const { totalRevenue, revenueChangePercentage, loading, error } =

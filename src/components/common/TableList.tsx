@@ -2,8 +2,7 @@ import { useFetchRecentEvents } from "../../hooks/useFetchRecentEvents";
 import { RecentEventApi } from "../../types/types";
 
 const TableList = () => {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
+  const token = process.env.REACT_APP_API_TOKEN;
 
   const { recentEventsTotal, recentEvents } = useFetchRecentEvents(`${token}`);
 
