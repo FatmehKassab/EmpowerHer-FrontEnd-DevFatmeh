@@ -1,24 +1,18 @@
-
+import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export  const fetchUsers = async (token: string) => {
-    const response = await fetch(`${apiUrl}/api/users`, {
-      method: "GET",
+export const fetchUsers = async (token: string) => {
+  try {
+    const response = await axios.get(`${apiUrl}/api/users`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`, 
       },
     });
-  
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-  
-    const users = await response.json();
-    return users;
-  };
-  
 
-  
-
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch users");
+  }
+};

@@ -24,7 +24,7 @@ ChartJS.register(
 
 const GrowthHBar: React.FC = () => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3Njk5MTc1LCJleHAiOjE3Mjc3ODU1NzV9.LFMnctCtSQq61zpdr3r1_PwhzdU5J7elVD7M41rWpfI";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3ODczNTgxLCJleHAiOjE3Mjc5NTk5ODF9.PK_vWAfgMex1m7fLAn4uTs-luWT1kQ_nj7KqFREEDZk";
   const userData = useFetchUsers(token);
   const labels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 

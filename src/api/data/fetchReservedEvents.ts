@@ -1,13 +1,12 @@
+import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export  const fetchReservedEvents = async (): Promise<any[]> => {
-    const response = await fetch(`${apiUrl}/api/reserved_events`);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return await response.json();
-  };
-  
-
-  
+export const fetchReservedEvents = async (): Promise<any[]> => {
+  try {
+    const response = await axios.get(`${apiUrl}/api/reserved_events`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch reserved events");
+  }
+};
